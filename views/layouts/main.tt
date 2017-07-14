@@ -2,6 +2,7 @@
 <html lang=en>
   <head>
     <meta charset="utf8" />
+    <meta name="viewport" content="width=device-width" />
 <style>
 * {
  margin: 0;
@@ -20,6 +21,12 @@ p {
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
+}
+a.bracketButton {
+  text-decoration: none;
+}
+a.bracketButton:hover {
+  text-decoration: underline;
 }
 </style>
   </head>

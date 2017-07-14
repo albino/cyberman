@@ -1,6 +1,6 @@
 <center>
   <br />
-  <img src="img/lain.jpg" />
+  <img src="img/lain.jpg" style="max-width:748px;margin-left:10px;margin-right:10px;width:calc(100% - 20px)"/>
   <br /><br />
   <h1>Welcome to cybNIC</h1>
 </center>
@@ -11,6 +11,6 @@
   <p>.cyb is a new TLD (top level domain) for anything and everything cyberpunk-related, on the OpenNIC network. To get started, change your computer's DNS settings to use OpenNIC's servers - <a href="https://www.moderntld.com/get-started/">here's how</a>. Registering a .cyb domain is free for everyone.</p>
   <p>You can <a href="charter">read our charter</a> for more information and details on how to report abuse of cybNIC services.</p>
   <center>
-    <p>[&nbsp;<a href="login">log&nbsp;in</a>&nbsp;]&nbsp;&nbsp;[&nbsp;<a href="register">register</a>&nbsp;]</p>
+    <p>[&nbsp;<a class="bracketButton" href="login">log&nbsp;in</a>&nbsp;]&nbsp;&nbsp;[&nbsp;<a class="bracketButton" href="register">register</a>&nbsp;]</p>
   </center>
 </div>
