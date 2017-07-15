@@ -1,0 +1,53 @@
+<center>
+  <br />
+  <h1>Log in</h1>
+  <br />
+
+  <% IF account_created %>
+  <div class="msgBox">
+    Your account has been created and a confirmation email sent to <% email | html_entity %>. Please confirm your email address, then log in here.
+  </div>
+  <br /><br />
+  <% END %>
+
+  <% IF error %>
+  <div class="msgBox">
+    <% IF e_no_user %>
+    The email address <% email | html_entity %> is not registered.
+    <% END %>
+    <% IF e_pass %>
+    Your password was incorrect, sorry.
+    <% END %>
+    <% IF e_not_confirmed %>
+    Please confirm your email address using the link sent to <% email | html_entity %>.
+    <% END %>
+  </div>
+  <br /><br />
+  <% END %>
+
+</center>
+
+<div class="body">
+  <form method=POST class="login" action="login">
+    <table>
+      <tr>
+        <td>
+          <label for="email">Email address:</label>
+        </td>
+        <td>
+          <input type="email" name="email" id="email" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="password">Password:</label>
+        </td>
+        <td>
+          <input type="password" name="password" id="password" />
+        </td>
+      </tr>
+    </table>
+    <br />
+    <button action="submit">Log in</button>
+  </form>
+</div>

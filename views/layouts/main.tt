@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf8" />
     <meta name="viewport" content="width=device-width" />
+    <title>cybNIC</title>
 <style>
 * {
  margin: 0;
@@ -22,11 +23,22 @@ p {
   margin-left: auto;
   margin-right: auto;
 }
+
 a.bracketButton {
   text-decoration: none;
 }
 a.bracketButton:hover {
   text-decoration: underline;
+}
+
+form.login>table>tbody>tr>td>label {
+  margin-right: 10px;
+}
+
+.msgBox {
+  border: 1px solid white;
+  display: inline-block;
+  padding: 10px;
 }
 </style>
   </head>
