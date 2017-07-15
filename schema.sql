@@ -10,7 +10,7 @@ create table user (
 drop table if exists session;
 create table session (
   id integer primary key,
-  uid text not null,
+  uid integer not null,
   since integer not null,
   token text not null
 );

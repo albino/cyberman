@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf8" />
     <meta name="viewport" content="width=device-width" />
+    <% IF redir %>
+    <meta http-equiv="refresh" content="0;<% redir %>" />
+    <% END %>
     <title>cybNIC</title>
 <style>
 * {

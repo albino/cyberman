@@ -7,6 +7,7 @@ use Math::Random::Secure qw(rand irand);
 #####
 # cyberman.pm
 # index page and authentication
+# maybe this could be split into another file at a later juncture
 #####
 
 # misc authentication subs
@@ -49,7 +50,7 @@ hook 'before' => sub {
     }
   }
   
-  my $uid = cookieval("token");
+  my $uid = cookieval("id");
   my $token = cookieval("token");
   my $auth = 0;
   if ($uid && $token) {
@@ -59,10 +60,11 @@ hook 'before' => sub {
   var auth => $auth;
 };
 
-get '/' => sub {
+get qr{^/(index)?$} => sub {
   if (!vars->{auth}) {
-    template 'index';
+    return template 'index';
   }
+  return "well done, you logged in, nothing to see yet";
 };
 
 post '/register' => sub {
@@ -155,7 +157,23 @@ post '/login' => sub {
 
   # checks finished, we can create a session now
 
-  return;
+  my $token = randstring(32);
+
+  database->quick_insert(
+    "session",
+    {
+      "token" => $token,
+      "uid" => $user->{"id"},
+      "since" => time,
+    },
+  );
+
+  cookie id => $user->{"id"};
+  cookie token => $token;
+
+  template redir => {
+    "redir" => "index",
+  };
 };
 
 true;
