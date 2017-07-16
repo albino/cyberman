@@ -184,8 +184,8 @@ post '/login' => sub {
     },
   );
 
-  cookie id => $user->{"id"};
-  cookie token => $token;
+  cookie id => $user->{"id"}, http_only => 1;
+  cookie token => $token, http_only => 1;
 
   template 'redir' => {
     "redir" => "domains",
