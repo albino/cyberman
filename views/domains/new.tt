@@ -1,0 +1,34 @@
+<center>
+  <br />
+  <h1>Register a domain</h1>
+  <br />
+</center>
+
+<% IF error %>
+<center>
+  <div class="msgBox">
+    <% IF e_no_name %>
+    You did not specify a domain to register.
+    <% END %>
+    <% IF e_exists %>
+    The domain '<% name | html_entity %>.cyb' has already been registered. Please choose a different domain name.
+    <% END %>
+    <% IF e_chars %>
+    The domain '<% name | html_entity %>.cyb' contains invalid characters. Domains must match the regular expression `^[a-z0-9]([a-z0-9\-_]*[a-z0-9])?$`.
+    <% END %>
+  </div>
+  <br /><br />
+</center>
+<% END %>
+
+<%# TODO: a nice AJAX availability checker %>
+
+<div class="body">
+  Please choose a domain to register:
+  <br /><br />
+
+  <form method="POST" class="login">
+    <input type="text" name="name">.cyb
+    <button action="submit" style="margin-left:20px">Register domain</button>
+  </form>
+</div>

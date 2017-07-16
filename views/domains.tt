@@ -5,6 +5,10 @@
 </center>
 
 <div class="body">
+  <center>
+    [&nbsp;<a class="bracketButton" href="domains/new">Register a domain</a>&nbsp;]
+  </center>
+
   <% IF domains.size > 0 %>
   <em>
     <% domains.size %>
