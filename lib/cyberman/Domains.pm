@@ -67,7 +67,7 @@ post '/domains/new' => sub {
   );
 
   template 'redir' => {
-    "redir" => "../domains",
+    "redir" => "../domains?new=$name",
   };
 };
 

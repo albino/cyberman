@@ -2,6 +2,13 @@
   <br />
   <h1>Your Domains</h1>
   <br />
+  
+  <% IF params.new %>
+  <div class="msgBox">
+    The domain '<% params.new | html_entity %>.cyb' was registered successfully!
+  </div>
+  <br /><br />
+  <% END %>
 </center>
 
 <div class="body">
