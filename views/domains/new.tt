@@ -31,4 +31,6 @@
     <input type="text" name="name">.cyb
     <button action="submit" style="margin-left:20px">Register domain</button>
   </form>
+  <br />
+  <a href="../domains" class="bracketButton">[&nbsp;go&nbsp;back&nbsp;]</a>
 </div>

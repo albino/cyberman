@@ -50,4 +50,6 @@
     <br />
     <button action="submit">Log in</button>
   </form>
+  <br />
+  <a href="index" class="bracketButton">[&nbsp;go&nbsp;back&nbsp;]</a>
 </div>

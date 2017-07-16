@@ -63,5 +63,7 @@
     <button action="submit">Register</button>
     <br /><br />
     <em>By registering, you agree to be bound by the policies set forward in our <a href="charter">charter</a>.</em>
+    <br />
+    <a href="index" class="bracketButton">[&nbsp;go&nbsp;back&nbsp;]</a>
   </form>
 </div>
