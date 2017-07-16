@@ -9,6 +9,12 @@
   </div>
   <br /><br />
   <% END %>
+  <% IF params.removed %>
+  <div class="msgBox">
+    The domain '<% params.removed | html_entity %>.cyb' was removed successfully.
+  </div>
+  <br /><br />
+  <% END %>
 </center>
 
 <div class="body">

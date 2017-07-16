@@ -72,4 +72,46 @@ post '/domains/new' => sub {
   };
 };
 
+get '/domains/:id/remove' => sub {
+  my $domain = database->quick_select(
+    "domain",
+    {
+      "id" => param("id"),
+    },
+  );
+
+  return auth_test($domain->{"ownerid"}) if auth_test($domain->{"ownerid"});
+
+  template 'domains/remove.tt' => {
+    "domain" => $domain,
+  };
+};
+
+post '/domains/:id/remove' => sub {
+  my $domain = database->quick_select(
+    "domain",
+    {
+      "id" => param("id"),
+    },
+  );
+
+  if (!$domain) {
+    # quick and dirty error that shouldn't really appear
+    return "No such domain!";
+  }
+
+  return auth_test($domain->{"ownerid"}) if auth_test($domain->{"ownerid"});
+
+  database->quick_delete(
+    "domain",
+    {
+      "id" => param("id"),
+    },
+  );
+
+  template redir => {
+    redir => "../../domains?removed=$domain->{name}",
+  };
+};
+
 true;
