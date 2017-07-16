@@ -57,11 +57,20 @@ hook 'before' => sub {
   my $uid = cookieval("id");
   my $token = cookieval("token");
   my $auth = 0;
+  my $email;
   if ($uid && $token) {
     $auth = get_auth($uid, $token);
+    $email = database->quick_lookup(
+      "user",
+      {
+        "id" => $uid,
+      },
+      "email",
+    );
   }
 
   var auth => $auth;
+  var email => $email;
 };
 
 get qr{^/(index)?$} => sub {
@@ -180,6 +189,14 @@ post '/login' => sub {
 
   template 'redir' => {
     "redir" => "domains",
+  };
+};
+
+post '/logout' => sub {
+  cookie 'id' => undef;
+  cookie 'token' => undef;
+  template 'redir' => {
+    "redir" => "index",
   };
 };
 

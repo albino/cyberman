@@ -26,11 +26,25 @@ p {
   margin-left: auto;
   margin-right: auto;
 }
+.toolbar {
+  border: 1px solid white;
+}
 
 a.bracketButton {
   text-decoration: none;
 }
 a.bracketButton:hover {
+  text-decoration: underline;
+}
+button.textButton {
+  background: none !important;
+  color: inherit;
+  border: none;
+  padding: 0 !important;
+  font: inherit;
+  cursor: pointer;
+}
+button.textButton:hover {
   text-decoration: underline;
 }
 
@@ -49,6 +63,20 @@ table.domains>tbody>tr>td:first-child>* {
 </style>
   </head>
   <body>
+    <% IF vars.auth %>
+    <div class="toolbar">
+      <div class="body">
+        <span>
+          Logged in as <% vars.email | html_entity %>
+        </span>
+        <span style="float:right;">
+          <form action="/logout" method="POST">
+            [&nbsp;<button class="textButton" action="submit">log&nbsp;out</button>&nbsp;]
+          </form>
+        </span>
+      </div>
+    </div>
+    <% END %>
     <% content %>
   </body>
 </html>
