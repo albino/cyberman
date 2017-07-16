@@ -1,5 +1,9 @@
 package cyberman;
+
 use Dancer2;
+
+use cyberman::Domains;
+
 use Dancer2::Plugin::Database;
 use Digest::Bcrypt;
 use Math::Random::Secure qw(rand irand);
@@ -64,7 +68,10 @@ get qr{^/(index)?$} => sub {
   if (!vars->{auth}) {
     return template 'index';
   }
-  return "well done, you logged in, nothing to see yet";
+
+  template 'redir' => {
+    "redir" => "domains",
+  };
 };
 
 post '/register' => sub {
@@ -171,8 +178,8 @@ post '/login' => sub {
   cookie id => $user->{"id"};
   cookie token => $token;
 
-  template redir => {
-    "redir" => "index",
+  template 'redir' => {
+    "redir" => "domains",
   };
 };
 

@@ -1,0 +1,45 @@
+<center>
+  <br />
+  <h1>Your Domains</h1>
+  <br />
+</center>
+
+<div class="body">
+  <% IF domains.size > 0 %>
+  <em>
+    <% domains.size %>
+    <% IF domains.size == 1 %>
+    domain
+    <% ELSE %>
+    domains
+    <% END %>
+  </em>
+
+  <br />
+
+  <table class="domains">
+    <tr>
+      <td>
+        <strong>Domain name</strong>
+      </td>
+      <td>
+        <strong>Actions</strong>
+      </td>
+    </tr>
+    <% FOREACH d IN domains %>
+    <tr>
+      <td>
+        <% d.name | html_entity %>.cyb
+      </td>
+      <td>
+        [&nbsp;<a class="bracketButton" href="domains/<% d.id %>/edit">edit</a>&nbsp;]
+        [&nbsp;<a class="bracketButton" href="domains/<% d.id %>/remove">remove</a>&nbsp;]
+      </td>
+    </tr>
+    <% END %>
+  </table>
+
+  <% ELSE %>
+  You don't have any domains registered.
+  <% END %>
+</div>

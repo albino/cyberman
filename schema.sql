@@ -14,3 +14,10 @@ create table session (
   since integer not null,
   token text not null
 );
+
+drop table if exists domain;
+create table domain (
+  id integer primary key,
+  name string not null,
+  ownerid integer not null
+)
