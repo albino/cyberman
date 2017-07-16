@@ -105,7 +105,6 @@ post '/register' => sub {
   if (scalar(keys(%errs)) != 0) {
     return template 'register' => {
       error => 1,
-      params,
       %errs,
     };
   }
@@ -132,7 +131,6 @@ post '/register' => sub {
 
   template 'login' => {
     account_created => 1,
-    params,
   };
 };
 
@@ -167,7 +165,6 @@ post '/login' => sub {
     return template 'login' => {
       error => 1,
       %errs,
-      params,
     };
   }
 

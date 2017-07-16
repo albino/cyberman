@@ -39,7 +39,7 @@
           <label for="email">Email address:</label>
         </td>
         <td>
-          <input type="email" name="email" id="email" value="<% email | html_entity %>" />
+          <input type="email" name="email" id="email" value="<% params.email | html_entity %>" />
         </td>
       </tr>
       <tr>
@@ -47,7 +47,7 @@
           <label for="password">Password:</label>
         </td>
         <td>
-          <input type="password" name="password" id="password" value="<% password | html_entity %>" />
+          <input type="password" name="password" id="password" value="<% params.password | html_entity %>" />
         </td>
       </tr>
       <tr>
@@ -55,7 +55,7 @@
           <label for="password2">Confirm password:</label>
         </td>
         <td>
-          <input type="password" name="password2" id="password2" value="<% password2 | html_entity %>" />
+          <input type="password" name="password2" id="password2" value="<% params.password2 | html_entity %>" />
         </td>
       </tr>
     </table>

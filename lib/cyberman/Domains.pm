@@ -52,7 +52,6 @@ post '/domains/new' => sub {
 
   if (scalar(keys(%errs)) != 0) {
     return template 'domains/new' => {
-      params,
       %errs,
       error => 1,
     };

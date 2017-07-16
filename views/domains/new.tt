@@ -11,10 +11,10 @@
     You did not specify a domain to register.
     <% END %>
     <% IF e_exists %>
-    The domain '<% name | html_entity %>.cyb' has already been registered. Please choose a different domain name.
+    The domain '<% params.name | html_entity %>.cyb' has already been registered. Please choose a different domain name.
     <% END %>
     <% IF e_chars %>
-    The domain '<% name | html_entity %>.cyb' contains invalid characters. Domains must match the regular expression `^[a-z0-9]([a-z0-9\-_]*[a-z0-9])?$`.
+    The domain '<% params.name | html_entity %>.cyb' contains invalid characters. Domains must match the regular expression `^[a-z0-9]([a-z0-9\-_]*[a-z0-9])?$`.
     <% END %>
   </div>
   <br /><br />
