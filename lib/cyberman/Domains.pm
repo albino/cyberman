@@ -3,10 +3,10 @@ package cyberman::Domains;
 use Dancer2 appname => "cyberman";
 use Dancer2::Plugin::Database;
 
+use cyberman::Helper qw(auth_test);
+
 get '/domains' => sub {
-  return template 'redir' => {
-    "redir" => "index",
-  } unless vars->{"auth"};
+  return auth_test() if auth_test();
 
   my @domains = database->quick_select(
     "domain",
@@ -21,6 +21,8 @@ get '/domains' => sub {
 };
 
 post '/domains/new' => sub {
+  return auth_test() if auth_test();
+
   my %errs;
 
   if (!param("name")) {
