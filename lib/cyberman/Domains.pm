@@ -4,6 +4,7 @@ use Dancer2 appname => "cyberman";
 use Dancer2::Plugin::Database;
 
 use cyberman::Helper qw(auth_test);
+use if config->{"use_nsd"}, "NSD::Interface";
 
 get '/domains' => sub {
   return auth_test() if auth_test();

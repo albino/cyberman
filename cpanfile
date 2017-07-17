@@ -9,6 +9,7 @@ requires "DBD::SQLite" => "0";
 requires "HTML::Entities" => "0";
 requires "Digest::Bcrypt" => "0";
 requires "Math::Random::Secure" => "0";
+requires "if" => "0";
 
 requires "Plack::Middleware::Deflater" => "0";
 requires "Plack::Middleware::Session" => "0";

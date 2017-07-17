@@ -15,3 +15,8 @@ plugins:
     driver: 'SQLite'
     dbname: 'db.sqlite'
     log_queries: 1
+
+nsd:
+  enable: 1
+  zone_conf: /var/nsd/etc/zones.conf
+  zone_dir: /var/nsd/zones/master
