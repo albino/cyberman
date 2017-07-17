@@ -5,6 +5,8 @@ use Dancer2::Plugin::Database;
 get '/api/check_availability' => sub {
   # No auth req'd
   # returns 'y' or 'n'
+  
+  # TODO: check name validity here
 
   if (!param("name")) {
     return "n";

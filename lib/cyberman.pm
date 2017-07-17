@@ -5,6 +5,7 @@ use Dancer2::Plugin::Database;
 
 use cyberman::Domains;
 use cyberman::Auth;
+use cyberman::Account;
 use cyberman::Helper;
 use cyberman::API;
 

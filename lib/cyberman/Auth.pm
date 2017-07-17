@@ -2,8 +2,6 @@ package cyberman::Auth;
 
 use Dancer2 appname => "cyberman";
 use Dancer2::Plugin::Database;
-use Digest::Bcrypt;
-use Math::Random::Secure qw(irand);
 
 use cyberman::Helper;
 
@@ -36,20 +34,14 @@ post '/register' => sub {
     };
   }
 
-  # Hash password
-  my $salt = randstring(16);
-
-  my $b = new Digest::Bcrypt;
-  $b->cost(8);
-  $b->salt($salt);
-  $b->add(param "password");
+  my ($hash, $salt) = hash_password(param("password"));
 
   # Create the account in the database
   database->quick_insert(
     "user",
     {
       "email" => param("email"),
-      "password" => $b->bcrypt_b64digest,
+      "password" => $hash,
       "salt" => $salt,
     },
   );
@@ -76,12 +68,9 @@ post '/login' => sub {
   }
 
   if (scalar(keys(%errs)) == 0) {
-    my $b = new Digest::Bcrypt;
-    $b->cost(8);
-    $b->salt($user->{"salt"});
-    $b->add(param "password");
-
-    $errs{"e_pass"} = 1 unless $b->bcrypt_b64digest eq $user->{"password"};
+    my ($hash, $salt) = hash_password(param("password"), $user->{"salt"});
+    warn $hash;
+    $errs{"e_pass"} = 1 unless $hash eq $user->{"password"};
   }
 
   if (scalar(keys(%errs)) == 0) {
