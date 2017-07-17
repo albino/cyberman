@@ -21,16 +21,17 @@
 </center>
 <% END %>
 
-<%# TODO: a nice AJAX availability checker %>
-
 <div class="body">
   Please choose a domain to register:
   <br /><br />
 
   <form method="POST" class="login">
-    <input type="text" name="name">.cyb
+    <input type="text" name="name" id="name" onkeyup="checkAvailability()">.cyb
     <button action="submit" style="margin-left:20px">Register domain</button>
   </form>
+  <span id="avail"></span>
   <br />
   <a href="../domains" class="bracketButton">[&nbsp;go&nbsp;back&nbsp;]</a>
 </div>
+
+<script type="text/javascript" src="/js/domain_check.js"></script>

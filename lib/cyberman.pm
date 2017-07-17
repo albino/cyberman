@@ -6,6 +6,7 @@ use Dancer2::Plugin::Database;
 use cyberman::Domains;
 use cyberman::Auth;
 use cyberman::Helper;
+use cyberman::API;
 
 # Index route, hook and helper functions for authentication
 
