@@ -7,7 +7,7 @@ use Digest::Bcrypt;
 
 use Exporter qw(import);
 
-our @EXPORT = qw(auth_test randstring hash_password);
+our @EXPORT = qw(auth_test randstring hash_password check_name);
 
 # Helper functions
 
@@ -58,6 +58,15 @@ sub hash_password {
   $b->add($plaintext);
 
   return ($b->bcrypt_b64digest, $salt);
+}
+
+sub check_name {
+  my $name = shift;
+  if ($name =~ m/^[a-z0-9]([a-z0-9\-_]*[a-z0-9])?$/) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 1;

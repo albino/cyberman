@@ -3,7 +3,7 @@ package cyberman::Domains;
 use Dancer2 appname => "cyberman";
 use Dancer2::Plugin::Database;
 
-use cyberman::Helper qw(auth_test);
+use cyberman::Helper;
 use if config->{"use_nsd"}, "NSD::Interface";
 
 get '/domains' => sub {
@@ -33,7 +33,7 @@ post '/domains/new' => sub {
   my $name = lc param("name");
 
   if (scalar(keys(%errs)) == 0) {
-    if (param("name") !~ m/^[a-z0-9]([a-z0-9\-_]*[a-z0-9])?$/) {
+    if (!check_name(param "name")) {
       $errs{"e_chars"} = 1;
     }
   }
