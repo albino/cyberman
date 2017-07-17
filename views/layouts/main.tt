@@ -51,8 +51,11 @@ button.textButton:hover {
 form.login>table>tbody>tr>td>label {
   margin-right: 10px;
 }
-table.domains>tbody>tr>td:first-child>* {
-  margin-right: 2em;
+table.domains {
+  width: 100%;
+}
+table.domains td:first-child {
+  width: 50%;
 }
 
 .msgBox {
