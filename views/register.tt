@@ -25,6 +25,9 @@
       <% IF e_pass_match %>
       <li>The two passwords you entered do not match!</li>
       <% END %>
+      <% IF e_email_exists %>
+      <li>There is already an account with that email address.</li>
+      <% END %>
     </ul>
   </div>
 </div>

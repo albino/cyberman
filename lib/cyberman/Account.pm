@@ -36,6 +36,19 @@ post '/account' => sub {
     $errs{"e_no_email"} = 1;
   }
 
+  if (param("email") ne $user->{"email"}) {
+    my $result = database->quick_select (
+      "user",
+      {
+        "email" => param("email"),
+      },
+    );
+    
+    if ($result) {
+      $errs{"e_email_exists"} = 1;
+    }
+  }
+
   if (param("password") || param("npassword") || param("npassword2")) {
     $new_pass = 1;
 

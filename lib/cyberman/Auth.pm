@@ -17,6 +17,17 @@ post '/register' => sub {
     }
   }
 
+  my $result = database->quick_select(
+    "user",
+    {
+      "email" => param("email"),
+    },
+  );
+
+  if ($result) {
+    $errs{"e_email_exists"} = 1;
+  }
+
   if (!exists $errs{"e_no_password"} || !exists $errs{"e_no_password2"}) {
     if (param("password") ne param("password2")) {
       $errs{"e_pass_match"} = 1;

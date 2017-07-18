@@ -28,9 +28,13 @@
       <% IF e_pass_len %>
       <li>Your password must be at least 8 characters long.</li>
       <% END %>
+      <% IF e_email_exists %>
+      <li>There is already an account with that email address.</li>
+      <% END %>
     </ul>
   </div>
 </div>
+<br />
 <% END %>
 
 <div class="body">
