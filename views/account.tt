@@ -1,0 +1,75 @@
+<center>
+  <br />
+  <h1>Your Account</h1>
+  <br />
+  <% IF updated %>
+  <div class="msgBox">
+    Your account details were updated successfully.
+  </div>
+  <br /><br />
+  <% END %>
+</center>
+
+<% IF error %>
+<div style="text-align:center">
+  <div class="msgBox" style="text-align:left">
+    There were some problems with your submission:
+    <br />
+    <ul>
+      <% IF e_no_email %>
+      <li>You need too enter a valid email address.</li>
+      <% END %>
+      <% IF e_wrong_pass %>
+      <li>The password you entered is incorrect.</li>
+      <% END %>
+      <% IF e_pass_mismatch %>
+      <li>The two passwords you entered do not match.</li>
+      <% END %>
+      <% IF e_pass_len %>
+      <li>Your password must be at least 8 characters long.</li>
+      <% END %>
+    </ul>
+  </div>
+</div>
+<% END %>
+
+<div class="body">
+  <form method="POST">
+    <table class="domains">
+      <tr>
+        <td>
+          <label for="email">Email address:</label>
+        </td>
+        <td>
+          <input type="email" name="email" id="email" value="<% user.email | html_entity %>" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="password">Old password:</label>
+        </td>
+        <td>
+          <input type="password" name="password" id="password" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="npassword">New password:</label>
+        </td>
+        <td>
+          <input type="password" name="npassword" id="npassword" />
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <label for="npassword2">New password (confirm):</label>
+        </td>
+        <td>
+          <input type="password" name="npassword2" id="npassword2" />
+        </td>
+      </tr>
+    </table>
+    <br />
+    [&nbsp;<button class="textButton" action="submit">update</button>&nbsp;]
+  </form>
+</div>

@@ -9,6 +9,13 @@
   </div>
   <br /><br />
   <% END %>
+  
+  <% IF params.pwchange %>
+  <div class="msgBox">
+    Your password has been changed and all browsers logged out. Please log in again here.
+  </div>
+  <br /><br />
+  <% END %>
 
   <% IF error %>
   <div class="msgBox">
