@@ -18,6 +18,7 @@
         </span>
         <span style="float:right;">
           <form action="/logout" method="POST">
+            [&nbsp;<a href="/domains" class="bracketButton">domains</a>&nbsp;]
             [&nbsp;<a href="/account" class="bracketButton">account</a>&nbsp;]
             [&nbsp;<button class="textButton" action="submit">log&nbsp;out</button>&nbsp;]
           </form>
