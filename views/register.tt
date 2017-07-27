@@ -63,10 +63,9 @@
       </tr>
     </table>
     <br />
-    <button action="submit">Register</button>
+    [&nbsp;<button action="submit" class="textButton">register</button>&nbsp;]
+    [&nbsp;<a href="index" class="bracketButton">go&nbsp;back</a>&nbsp;]
     <br /><br />
     <em>By registering, you agree to be bound by the policies set forward in our <a href="charter">charter</a>.</em>
-    <br />
-    <a href="index" class="bracketButton">[&nbsp;go&nbsp;back&nbsp;]</a>
   </form>
 </div>

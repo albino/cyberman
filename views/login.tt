@@ -55,8 +55,7 @@
       </tr>
     </table>
     <br />
-    <button action="submit">Log in</button>
+    [&nbsp;<button action="submit" class="textButton">log&nbsp;in</button>&nbsp;]
+    [&nbsp;<a href="index" class="bracketButton">go&nbsp;back</a>&nbsp;]
   </form>
-  <br />
-  <a href="index" class="bracketButton">[&nbsp;go&nbsp;back&nbsp;]</a>
 </div>

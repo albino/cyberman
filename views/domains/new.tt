@@ -27,11 +27,11 @@
 
   <form method="POST" class="login">
     <input type="text" name="name" id="name" onkeyup="checkAvailability()">.cyb
-    <button action="submit" style="margin-left:20px">Register domain</button>
+    <br /><br />
+    [&nbsp;<button action="submit" class="textButton">register&nbsp;domain</button>&nbsp;]
+    [&nbsp;<a href="../domains" class="bracketButton">go&nbsp;back</a>&nbsp;]
   </form>
   <span id="avail"></span>
-  <br />
-  <a href="../domains" class="bracketButton">[&nbsp;go&nbsp;back&nbsp;]</a>
 </div>
 
 <script type="text/javascript" src="/js/domain_check.js"></script>
