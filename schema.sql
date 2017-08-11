@@ -19,5 +19,16 @@ drop table if exists domain;
 create table domain (
   id integer primary key,
   name string not null,
-  ownerid integer not null
-)
+  ownerid integer not null,
+  lastsid integer not null default 0
+);
+
+drop table if exists record;
+create table record (
+  id integer primary key,
+  sid integer not null,
+  domainid integer not null,
+  type string not null,
+  name string not null,
+  value string not null
+);

@@ -8,6 +8,7 @@ use cyberman::Auth;
 use cyberman::Account;
 use cyberman::Helper;
 use cyberman::API;
+use cyberman::Records;
 
 # Index route, hook and helper functions for authentication
 
@@ -52,6 +53,7 @@ hook 'before' => sub {
 
   var auth => $auth;
   var email => $email;
+  var config => config();
 };
 
 get qr{^/(index)?$} => sub {

@@ -19,7 +19,7 @@
 
 <div class="body">
   <center>
-    [&nbsp;<a class="bracketButton" href="domains/new">Register a domain</a>&nbsp;]
+    [&nbsp;<a class="bracketButton" href="domains/new">register a domain</a>&nbsp;]
   </center>
 
   <% IF domains.size > 0 %>
@@ -49,8 +49,8 @@
         <% d.name | html_entity %>.cyb
       </td>
       <td>
-        [&nbsp;<a class="bracketButton" href="domains/<% d.id %>/edit">edit</a>&nbsp;]
-        [&nbsp;<a class="bracketButton" href="domains/<% d.id %>/remove">remove</a>&nbsp;]
+        [&nbsp;<a class="bracketButton" href="domains/<% d.name %>/records">edit</a>&nbsp;]
+        [&nbsp;<a class="bracketButton" href="domains/<% d.name %>/remove">remove</a>&nbsp;]
       </td>
     </tr>
     <% END %>

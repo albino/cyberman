@@ -1,0 +1,75 @@
+<center>
+  <br />
+  <h1>Add a record</h1>
+  <br />
+</center>
+
+<% IF error %>
+<div style="text-align:center">
+  <div class="msgBox" style="text-align:left">
+    There were some problems with your submission:
+    <br />
+    <ul>
+      <% IF e_bad_value %>
+      <li>The value you entered was invalid.
+        <% IF params.type == 'NS' %>(Did you forget the trailing '.'?)<% END %></li>
+      <% END %>
+      <% IF e_bad_type %>
+      <li>You must choose a type for the record.</li>
+      <% END %>
+      <% IF e_bad_name %>
+      <li>The name of the record is invalid.</li>
+      <% END %>
+    </ul>
+  </div>
+</div>
+<br />
+<% END %>
+
+<div class="body">
+  <em>Adding a record for <% domain.name | html_entity %>.<% vars.config.tld %></em>
+
+  <form method="POST" class="login">
+    <table class="domains">
+      <tr>
+        <td>
+          <strong>
+            <label for="name">Record name:</label>
+          </strong>
+        </td>
+        <td>
+          <input type="text" style="width: 100px" name="rname" id="rname" placeholder="Use @ for root"
+            value="<% params.rname | html_entity %>" />.<% domain.name | html_entity %>.<% vars.config.tld %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>
+            <label for="type">Record type:</label>
+          </strong>
+        </td>
+        <td>
+          <select name="type" id="type">
+            <option value="">- Select -</option>
+            <option value="A">A</option>
+            <option value="AAAA">AAAA</option>
+            <option value="NS">NS</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>
+            <label for="value">Value:</label>
+          </strong>
+        </td>
+        <td>
+          <input type="text" name="value" id="value" value="<% params.value | html_entity %>" />
+        </td>
+      </tr>
+    </table>
+    <br />
+    [&nbsp;<button action="submit" class="textButton">create&nbsp;record</button>&nbsp;]
+    [&nbsp;<a class="bracketButton" href="../records">go&nbsp;back</a>&nbsp;]
+  </form>
+</div>

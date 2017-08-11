@@ -1,0 +1,76 @@
+<center>
+  <br />
+  <h1>Editing <% domain.name | html_entity %>.<% vars.config.tld %></h1>
+  <br />
+
+  <% IF params.added %>
+  <div class="msgBox">
+    The record was created successfully!
+  </div>
+  <br /><br />
+  <% END %>
+  
+  <% IF params.removed %>
+  <div class="msgBox">
+    The record was removed successfully!
+  </div>
+  <br /><br />
+  <% END %>
+</center>
+
+<div class="body">
+  <center>
+    [&nbsp;<a class="bracketButton" href="records/add">add record</a>&nbsp;]
+  </center>
+
+  <% IF records.size > 0 %>
+  <em>
+    <% records.size %>
+    <% IF records.size == 1 %>
+    record
+    <% ELSE %>
+    records
+    <% END %>
+  </em>
+
+  <br />
+
+  <table class="domains">
+    <tr>
+      <td>
+        <strong>Name</strong>
+      </td>
+      <td>
+        <strong>Type</strong>
+      </td>
+      <td>
+        <strong>Value</strong>
+      </td>
+      <td>
+        <strong>Actions</strong>
+      </td>
+    </tr>
+    <% FOREACH r IN records %>
+    <tr>
+      <td>
+        <% r.name | html_entity %>
+      </td>
+      <td>
+        <% r.type | html_entity %>
+      </td>
+      <td>
+        <% r.value | html_entity %>
+      </td>
+      <td>
+        <form method="POST" action="records/<% r.sid %>/remove">
+          [&nbsp;<button class="textButton" action="submit">remove</button>&nbsp;]
+        </form>
+      </td>
+    </tr>
+    <% END %>
+  </table>
+
+  <% ELSE %>
+  This domain has no records.
+  <% END %>
+</div>

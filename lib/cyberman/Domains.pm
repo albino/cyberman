@@ -4,7 +4,6 @@ use Dancer2 appname => "cyberman";
 use Dancer2::Plugin::Database;
 
 use cyberman::Helper;
-use if config->{"use_nsd"}, "NSD::Interface";
 
 get '/domains' => sub {
   return auth_test() if auth_test();
@@ -73,11 +72,11 @@ post '/domains/new' => sub {
   };
 };
 
-get '/domains/:id/remove' => sub {
+get '/domains/:name/remove' => sub {
   my $domain = database->quick_select(
     "domain",
     {
-      "id" => param("id"),
+      "name" => param("name"),
     },
   );
 
@@ -88,11 +87,11 @@ get '/domains/:id/remove' => sub {
   };
 };
 
-post '/domains/:id/remove' => sub {
+post '/domains/:name/remove' => sub {
   my $domain = database->quick_select(
     "domain",
     {
-      "id" => param("id"),
+      "name" => param("name"),
     },
   );
 
@@ -106,7 +105,7 @@ post '/domains/:id/remove' => sub {
   database->quick_delete(
     "domain",
     {
-      "id" => param("id"),
+      "name" => param("name"),
     },
   );
 
