@@ -80,7 +80,6 @@ post '/login' => sub {
 
   if (scalar(keys(%errs)) == 0) {
     my ($hash, $salt) = hash_password(param("password"), $user->{"salt"});
-    warn $hash;
     $errs{"e_pass"} = 1 unless $hash eq $user->{"password"};
   }
 
