@@ -57,8 +57,6 @@ post '/domains/new' => sub {
     };
   }
 
-  # TODO: send domains to nsd
-
   database->quick_insert(
     "domain",
     {

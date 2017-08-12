@@ -1,6 +1,7 @@
 requires "Dancer2" => "0.205001";
 
 requires "YAML"             => "0";
+requires "YAML::Tiny" => "0";
 requires "URL::Encode::XS"  => "0";
 requires "CGI::Deurl::XS"   => "0";
 requires "HTTP::Parser::XS" => "0";

@@ -17,3 +17,14 @@ plugins:
     log_queries: 1
 
 tld: 'cyb'
+
+zonewriter:
+  # Values used for SOA
+  ns: 'ns12.opennic.glue'
+  responsible: 'hostmaster.opennic.cyb.'
+  file: '/var/nsd/zones/master/cyb'
+  include:
+    # Optionally, you can have the zonewriter include another file
+    # in the zone, which allows you to define some records manually
+    enabled: true
+    file: 'human_cyb'
