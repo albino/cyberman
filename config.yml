@@ -18,6 +18,11 @@ plugins:
 
 tld: 'cyb'
 
+reserved_domains:
+  # use lowercase please
+  - "opennic"
+  - "dns"
+
 zonewriter:
   # Values used for SOA
   ns: 'ns12.opennic.glue'

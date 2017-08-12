@@ -16,6 +16,9 @@
     <% IF e_chars %>
     The domain '<% params.name | html_entity %>.<% vars.config.tld %>' contains invalid characters.
     <% END %>
+    <% IF e_reserved %>
+    The domain '<% params.name | html_entity %>.<% vars.config.tld %>' is reserved for use by the registry.
+    <% END %>
   </div>
   <br /><br />
 </center>

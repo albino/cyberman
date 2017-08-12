@@ -50,6 +50,14 @@ post '/domains/new' => sub {
     }
   }
 
+  if (scalar(keys(%errs)) == 0) {
+    foreach my $disallowed (@{ config->{"reserved_domains"} }) {
+      if ($name eq $disallowed) {
+        $errs{"e_reserved"} = 1;
+      }
+    }
+  }
+
   if (scalar(keys(%errs)) != 0) {
     return template 'domains/new' => {
       %errs,
