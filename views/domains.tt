@@ -5,13 +5,13 @@
   
   <% IF params.new %>
   <div class="msgBox">
-    The domain '<% params.new | html_entity %>.cyb' was registered successfully!
+    The domain '<% params.new | html_entity %>.<% vars.config.tld %>' was registered successfully!
   </div>
   <br /><br />
   <% END %>
   <% IF params.removed %>
   <div class="msgBox">
-    The domain '<% params.removed | html_entity %>.cyb' was removed successfully.
+    The domain '<% params.removed | html_entity %>.<% vars.config.tld %>' was removed successfully.
   </div>
   <br /><br />
   <% END %>
@@ -46,7 +46,7 @@
     <% FOREACH d IN domains %>
     <tr>
       <td>
-        <% d.name | html_entity %>.cyb
+        <% d.name | html_entity %>.<% vars.config.tld %>
       </td>
       <td>
         [&nbsp;<a class="bracketButton" href="domains/<% d.name %>/records">edit</a>&nbsp;]

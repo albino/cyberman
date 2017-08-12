@@ -1,16 +1,16 @@
 <% IF domain %>
 <center>
   <br />
-  <h1>Removal of <% domain.name %>.cyb</h1>
+  <h1>Removal of <% domain.name %>.<% vars.config.tld %></h1>
   <br />
 </center>
 
 <div class="body">
   <p>
-    You are about to permanently remove <% domain.name %>.cyb and all its records.
+    You are about to permanently remove <% domain.name %>.<% vars.config.tld %> and all its records.
   </p>
   <p style="font-size:1.6em">
-    YOU ARE ABOUT TO PERMANENTLY REMOVE <% domain.name %>.cyb AND ALL ITS RECORDS!
+    YOU ARE ABOUT TO PERMANENTLY REMOVE <% domain.name %>.<% vars.config.tld %> AND ALL ITS RECORDS!
   </p>
   <p>
     There is <strong>no</strong> guarantee that you will be able to re-register this domain at a later date.
