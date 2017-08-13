@@ -1,6 +1,7 @@
 package cyberman::Account;
 use Dancer2 appname => "cyberman";
 use Dancer2::Plugin::Database;
+use URI::Escape;
 
 use cyberman::Helper;
 
@@ -73,8 +74,7 @@ post '/account' => sub {
   }
 
   if (param("email") ne $user->{"email"}) {
-
-    # TODO: verify email address here
+    my $conftoken = randstring(16);
 
     database->quick_update (
       "user",
@@ -82,9 +82,18 @@ post '/account' => sub {
         "id" => vars->{"auth"},
       },
       {
-        "email" => param "email",
+        "newemail" => param("email"),
+        "conftoken" => $conftoken,
       },
     );
+
+    my $email = template 'email/update' => {
+      "link" => config->{"mail"}->{"baseurl"} . "/confirm_update?o=" . uri_escape($user->{"email"}) . "&n=" . uri_escape(param "email") . "&t=$conftoken",
+    },
+    {
+      "layout" => undef,
+    };
+    send_email(param("email"), $email);
   }
 
   if ($new_pass) {
@@ -123,6 +132,33 @@ post '/account' => sub {
     updated => 1,
     user => $user,
   };
+};
+
+get '/confirm_update' => sub {
+  my $user = database->quick_select(
+    "user",
+    {
+      "email" => param("o"),
+      "newemail" => param("n"),
+      "conftoken" => param("t"),
+    },
+  );
+
+  if (!$user) {
+    return "No such user/token!";
+  }
+
+  database->quick_update(
+    "user",
+    {
+      "id" => $user->{"id"},
+    },
+    {
+      "email" => param("n"),
+    },
+  );
+
+  template 'confirmed';
 };
 
 true;

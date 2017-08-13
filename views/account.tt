@@ -4,7 +4,7 @@
   <br />
   <% IF updated %>
   <div class="msgBox">
-    Your account details were updated successfully.
+    Your account details were updated successfully. If you updated your email address, you need to click the link sent to you before the changes can be applied.
   </div>
   <br /><br />
   <% END %>

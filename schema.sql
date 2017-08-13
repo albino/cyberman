@@ -1,3 +1,10 @@
+drop table if exists cyberman;
+create table cyberman (
+  id integer primary key,
+  dbrev integer not null
+);
+insert into cyberman (dbrev) values (2);
+
 drop table if exists user;
 create table user (
   id integer primary key,
@@ -5,7 +12,8 @@ create table user (
   password text not null,
   salt text not null,
   active integer not null default 0,
-  conftoken text not null
+  conftoken text not null,
+  newemail text
 );
 
 drop table if exists session;
