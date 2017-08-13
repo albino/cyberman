@@ -14,7 +14,6 @@ plugins:
   Database:
     driver: 'SQLite'
     dbname: 'db.sqlite'
-    log_queries: 1
 
 tld: 'cyb'
 
@@ -33,3 +32,9 @@ zonewriter:
     # in the zone, which allows you to define some records manually
     enabled: true
     file: 'human_cyb'
+
+mail:
+  enabled: true
+  # Currently, the local MTA is used and there's no config option
+  from: 'cybnic@uptime.party'
+  baseurl: 'http://opennic.cyb'

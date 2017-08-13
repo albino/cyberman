@@ -4,10 +4,13 @@ use Dancer2 appname => "cyberman";
 
 use Math::Random::Secure qw(irand);
 use Digest::Bcrypt;
+use Email::Sender::Simple qw(sendmail);
+use Email::Simple;
+use Email::Simple::Creator;
 
 use Exporter qw(import);
 
-our @EXPORT = qw(auth_test randstring hash_password check_name);
+our @EXPORT = qw(auth_test randstring hash_password check_name send_email);
 
 # Helper functions
 
@@ -67,6 +70,25 @@ sub check_name {
   } else {
     return 0;
   }
+}
+
+sub send_email {
+  my $addy = shift;
+  my $body = shift;
+
+  # TODO: this function is quick and dirty to get this
+  # online - it needs to be rewritten so it doesn't block the thread!!
+
+  my $email = Email::Simple->create(
+    header => [
+      To => $addy,
+      From => config->{"mail"}->{"from"},
+      Subject => "Confirm your email address",
+    ],
+    body => $body,
+  );
+
+  sendmail($email) if config->{"mail"}->{"enabled"};
 }
 
 1;

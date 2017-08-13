@@ -2,6 +2,7 @@ package cyberman::Auth;
 
 use Dancer2 appname => "cyberman";
 use Dancer2::Plugin::Database;
+use URI::Escape;
 
 use cyberman::Helper;
 
@@ -46,6 +47,7 @@ post '/register' => sub {
   }
 
   my ($hash, $salt) = hash_password(param("password"));
+  my $conftoken = randstring(16);
 
   # Create the account in the database
   database->quick_insert(
@@ -54,10 +56,18 @@ post '/register' => sub {
       "email" => param("email"),
       "password" => $hash,
       "salt" => $salt,
+      "conftoken" => $conftoken,
     },
   );
 
-  # TODO: send confirmation email
+  # Send email
+  my $email = template 'email/registration' => {
+    "link" => config->{"mail"}->{"baseurl"} . "/confirm_new?e=" . uri_escape(param "email") . "&t=$conftoken",
+  },
+  {
+    "layout" => undef,
+  };
+  send_email(param("email"), $email);
 
   template 'login' => {
     account_created => 1,
@@ -113,6 +123,32 @@ post '/login' => sub {
   template 'redir' => {
     "redir" => "domains",
   };
+};
+
+get '/confirm_new' => sub {
+  my $user = database->quick_select(
+    "user",
+    {
+      "email" => param("e"),
+      "conftoken" => param("t"),
+    },
+  );
+
+  if (!$user) {
+    return "No such user/token!";
+  }
+
+  database->quick_update(
+    "user",
+    {
+      "id" => $user->{"id"},
+    },
+    {
+      "active" => 1,
+    },
+  );
+
+  template 'confirmed';
 };
 
 post '/logout' => sub {

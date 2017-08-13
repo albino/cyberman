@@ -4,7 +4,8 @@ create table user (
   email text not null,
   password text not null,
   salt text not null,
-  active integer not null default 0
+  active integer not null default 0,
+  conftoken text not null
 );
 
 drop table if exists session;
