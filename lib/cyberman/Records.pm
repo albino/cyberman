@@ -93,7 +93,7 @@ post '/domains/:name/records/add' => sub {
     }
   }
 
-  if (param("rname") !~ m/^(@|([a-zA-Z0-9]([a-zA-Z0-9-_]*[a-zA-Z0-9])\.)*[a-zA-Z0-9]([a-zA-Z0-9-_]*[a-zA-Z0-9])?)$/) {
+  if (param("rname") !~ m/^(@|([a-zA-Z0-9]([a-zA-Z0-9-_]*[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-_]*[a-zA-Z0-9])?)$/) {
     $errs{"e_bad_name"} = 1;
   }
 
