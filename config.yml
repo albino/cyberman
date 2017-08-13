@@ -21,6 +21,10 @@ reserved_domains:
   # use lowercase please
   - "opennic"
   - "dns"
+  - "cybnic"
+  - "register"
+  - "nic"
+  - "reg"
 
 zonewriter:
   # Values used for SOA
