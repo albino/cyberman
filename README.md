@@ -2,6 +2,8 @@
 
 A web-ui for registering domains, written in modern Perl 5 with Dancer.
 
+[issue tracker](https://git.fuwafuwa.moe/.cyb/cyberman/issues) | [detailed documentation](https://http.cat/404)
+
 ## Current state
 
 Cyberman was designed to serve .cyb, and the codebase reflects this. Although it is capable of serving any domain, the default config is for .cyb, and the templates/stylesheet are oriented towards cybNIC. We're interested in producing a 'generic' style; if you'd like to contribute to this, do get in touch.
