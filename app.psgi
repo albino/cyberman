@@ -9,8 +9,8 @@ use cyberman;
 use Plack::Builder;
 
 builder {
-  enable "Deflater";
-  enable "Session";
-  enable "CSRFBlock";
-  cyberman->to_app;
+	enable "Deflater";
+	enable "Session";
+	enable "CSRFBlock";
+	cyberman->to_app;
 }

@@ -1,63 +1,63 @@
 <center>
-  <br />
-  <h1>Log in</h1>
-  <br />
+	<br />
+	<h1>Log in</h1>
+	<br />
 
-  <% IF account_created %>
-  <div class="msgBox">
-    Your account has been created and a confirmation email sent to <% params.email | html_entity %>. Please confirm your email address, then log in here.
-  </div>
-  <br /><br />
-  <% END %>
-  
-  <% IF params.pwchange %>
-  <div class="msgBox">
-    Your password has been changed and all browsers logged out. Please log in again here.
-  </div>
-  <br /><br />
-  <% END %>
+	<% IF account_created %>
+	<div class="msgBox">
+		Your account has been created and a confirmation email sent to <% params.email | html_entity %>. Please confirm your email address, then log in here.
+	</div>
+	<br /><br />
+	<% END %>
 
-  <% IF error %>
-  <div class="msgBox">
-    <% IF e_no_user %>
-    The email address <% params.email | html_entity %> is not registered.
-    <% END %>
-    <% IF e_pass %>
-    Your password was incorrect, sorry.
-    <% END %>
-    <% IF e_not_confirmed %>
-    Please confirm your email address using the link sent to <% params.email | html_entity %>.
-    <% END %>
-  </div>
-  <br /><br />
-  <% END %>
+	<% IF params.pwchange %>
+	<div class="msgBox">
+		Your password has been changed and all browsers logged out. Please log in again here.
+	</div>
+	<br /><br />
+	<% END %>
+
+	<% IF error %>
+	<div class="msgBox">
+		<% IF e_no_user %>
+		The email address <% params.email | html_entity %> is not registered.
+		<% END %>
+		<% IF e_pass %>
+		Your password was incorrect, sorry.
+		<% END %>
+		<% IF e_not_confirmed %>
+		Please confirm your email address using the link sent to <% params.email | html_entity %>.
+		<% END %>
+	</div>
+	<br /><br />
+	<% END %>
 
 </center>
 
 <div class="body">
-  <form method=POST class="login" action="login">
-    <table>
-      <tr>
-        <td>
-          <label for="email">Email address:</label>
-        </td>
-        <td>
-          <input type="email" name="email" id="email" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="password">Password:</label>
-        </td>
-        <td>
-          <input type="password" name="password" id="password" />
-        </td>
-      </tr>
-    </table>
-    <br />
-    [&nbsp;<button action="submit" class="textButton">log&nbsp;in</button>&nbsp;]
-    [&nbsp;<a href="index" class="bracketButton">go&nbsp;back</a>&nbsp;]
-    <br /><br />
-    [&nbsp;<a href="forgot" class="bracketButton">recover forgotten password</a>&nbsp;]
-  </form>
+	<form method=POST class="login" action="login">
+		<table>
+			<tr>
+				<td>
+					<label for="email">Email address:</label>
+				</td>
+				<td>
+					<input type="email" name="email" id="email" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="password">Password:</label>
+				</td>
+				<td>
+					<input type="password" name="password" id="password" />
+				</td>
+			</tr>
+		</table>
+		<br />
+		[&nbsp;<button action="submit" class="textButton">log&nbsp;in</button>&nbsp;]
+		[&nbsp;<a href="index" class="bracketButton">go&nbsp;back</a>&nbsp;]
+		<br /><br />
+		[&nbsp;<a href="forgot" class="bracketButton">recover forgotten password</a>&nbsp;]
+	</form>
 </div>

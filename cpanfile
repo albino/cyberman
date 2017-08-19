@@ -21,6 +21,6 @@ requires "Plack::Middleware::Session" => "0";
 requires "Plack::Middleware::CSRFBlock" => "0";
 
 on "test" => sub {
-    requires "Test::More"            => "0";
-    requires "HTTP::Request::Common" => "0";
+	requires "Test::More"            => "0";
+	requires "HTTP::Request::Common" => "0";
 };

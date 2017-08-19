@@ -37,12 +37,12 @@ say $out <<'END';
 END
 
 if ($conf->{"include"}->{"enabled"}) {
-  say $out "\$INCLUDE $conf->{include}->{file}";
+	say $out "\$INCLUDE $conf->{include}->{file}";
 }
 
 # Time to get the records
 die "Unsupported database!"
-  unless $yml->[0]->{"plugins"}->{"Database"}->{"driver"} eq "SQLite";
+	unless $yml->[0]->{"plugins"}->{"Database"}->{"driver"} eq "SQLite";
 my $dbfile = "$Bin/../$yml->[0]->{plugins}->{Database}->{dbname}";
 my $dbh = DBI->connect("dbi:SQLite:dbname=$dbfile", "", "");
 
@@ -50,24 +50,24 @@ my $sth = $dbh->prepare("SELECT * FROM record");
 $sth->execute;
 
 while (my $r = $sth->fetchrow_hashref) {
-  # Look up domain
-  my $dsth = $dbh->prepare("select * from domain where id=?");
-  $dsth->bind_param(1, $r->{"domainid"});
-  $dsth->execute;
-  my $d = $dsth->fetchrow_hashref;
+	# Look up domain
+	my $dsth = $dbh->prepare("select * from domain where id=?");
+	$dsth->bind_param(1, $r->{"domainid"});
+	$dsth->execute;
+	my $d = $dsth->fetchrow_hashref;
 
-  # domain name
-  if ($r->{"name"} eq '@') {
-    print $out $d->{"name"}, " ";
-  } else {
-    print $out $r->{"name"}, ".", $d->{"name"}, " ";
-  }
+	# domain name
+	if ($r->{"name"} eq '@') {
+		print $out $d->{"name"}, " ";
+	} else {
+		print $out $r->{"name"}, ".", $d->{"name"}, " ";
+	}
 
-  # record type
-  print $out "IN $r->{type} ";
+	# record type
+	print $out "IN $r->{type} ";
 
-  # value
-  say $out $r->{value};
+	# value
+	say $out $r->{value};
 }
 
 close $out;

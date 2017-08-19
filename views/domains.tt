@@ -1,62 +1,62 @@
 <center>
-  <br />
-  <h1>Your Domains</h1>
-  <br />
-  
-  <% IF params.new %>
-  <div class="msgBox">
-    The domain '<% params.new | html_entity %>.<% vars.config.tld %>' was registered successfully!
-  </div>
-  <br /><br />
-  <% END %>
-  <% IF params.removed %>
-  <div class="msgBox">
-    The domain '<% params.removed | html_entity %>.<% vars.config.tld %>' was removed successfully.
-  </div>
-  <br /><br />
-  <% END %>
+	<br />
+	<h1>Your Domains</h1>
+	<br />
+
+	<% IF params.new %>
+	<div class="msgBox">
+		The domain '<% params.new | html_entity %>.<% vars.config.tld %>' was registered successfully!
+	</div>
+	<br /><br />
+	<% END %>
+	<% IF params.removed %>
+	<div class="msgBox">
+		The domain '<% params.removed | html_entity %>.<% vars.config.tld %>' was removed successfully.
+	</div>
+	<br /><br />
+	<% END %>
 </center>
 
 <div class="body">
-  <center>
-    [&nbsp;<a class="bracketButton" href="domains/new">register a domain</a>&nbsp;]
-  </center>
+	<center>
+		[&nbsp;<a class="bracketButton" href="domains/new">register a domain</a>&nbsp;]
+	</center>
 
-  <% IF domains.size > 0 %>
-  <em>
-    <% domains.size %>
-    <% IF domains.size == 1 %>
-    domain
-    <% ELSE %>
-    domains
-    <% END %>
-  </em>
+	<% IF domains.size > 0 %>
+	<em>
+		<% domains.size %>
+		<% IF domains.size == 1 %>
+		domain
+		<% ELSE %>
+		domains
+		<% END %>
+	</em>
 
-  <br />
+	<br />
 
-  <table class="domains">
-    <tr>
-      <td>
-        <strong>Domain name</strong>
-      </td>
-      <td>
-        <strong>Actions</strong>
-      </td>
-    </tr>
-    <% FOREACH d IN domains %>
-    <tr>
-      <td>
-        <% d.name | html_entity %>.<% vars.config.tld %>
-      </td>
-      <td>
-        [&nbsp;<a class="bracketButton" href="domains/<% d.name %>/records">edit</a>&nbsp;]
-        [&nbsp;<a class="bracketButton" href="domains/<% d.name %>/remove">remove</a>&nbsp;]
-      </td>
-    </tr>
-    <% END %>
-  </table>
+	<table class="domains">
+		<tr>
+			<td>
+				<strong>Domain name</strong>
+			</td>
+			<td>
+				<strong>Actions</strong>
+			</td>
+		</tr>
+		<% FOREACH d IN domains %>
+		<tr>
+			<td>
+				<% d.name | html_entity %>.<% vars.config.tld %>
+			</td>
+			<td>
+				[&nbsp;<a class="bracketButton" href="domains/<% d.name %>/records">edit</a>&nbsp;]
+				[&nbsp;<a class="bracketButton" href="domains/<% d.name %>/remove">remove</a>&nbsp;]
+			</td>
+		</tr>
+		<% END %>
+	</table>
 
-  <% ELSE %>
-  You don't have any domains registered.
-  <% END %>
+	<% ELSE %>
+	You don't have any domains registered.
+	<% END %>
 </div>

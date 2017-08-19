@@ -1,71 +1,71 @@
 <center>
-  <br />
-  <h1>Register</h1>
-  <br />
+	<br />
+	<h1>Register</h1>
+	<br />
 </center>
 
 <% IF error %>
 <div style="text-align:center">
-  <div class="msgBox" style="text-align:left">
-    There were some problems with your registration:
-    <br />
-    <ul>
-      <% IF e_no_email %>
-      <li>You need to enter a valid email address.</li>
-      <% END %>
-      <% IF e_no_password %>
-      <li>You need to enter a password.</li>
-      <% END %>
-      <% IF e_pass_len %>
-      <li>Your password must be at least 8 characters!</li>
-      <% END %>
-      <% IF e_no_password2 %>
-      <li>You need to enter a password confirmation.</li>
-      <% END %>
-      <% IF e_pass_match %>
-      <li>The two passwords you entered do not match!</li>
-      <% END %>
-      <% IF e_email_exists %>
-      <li>There is already an account with that email address.</li>
-      <% END %>
-    </ul>
-  </div>
+	<div class="msgBox" style="text-align:left">
+		There were some problems with your registration:
+		<br />
+		<ul>
+			<% IF e_no_email %>
+			<li>You need to enter a valid email address.</li>
+			<% END %>
+			<% IF e_no_password %>
+			<li>You need to enter a password.</li>
+			<% END %>
+			<% IF e_pass_len %>
+			<li>Your password must be at least 8 characters!</li>
+			<% END %>
+			<% IF e_no_password2 %>
+			<li>You need to enter a password confirmation.</li>
+			<% END %>
+			<% IF e_pass_match %>
+			<li>The two passwords you entered do not match!</li>
+			<% END %>
+			<% IF e_email_exists %>
+			<li>There is already an account with that email address.</li>
+			<% END %>
+		</ul>
+	</div>
 </div>
 <br />
 <% END %>
 
 <div class="body">
-  <form class="login" method="POST" action="register">
-    <table>
-      <tr>
-        <td>
-          <label for="email">Email address:</label>
-        </td>
-        <td>
-          <input type="email" name="email" id="email" value="<% params.email | html_entity %>" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="password">Password:</label>
-        </td>
-        <td>
-          <input type="password" name="password" id="password" value="<% params.password | html_entity %>" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="password2">Confirm password:</label>
-        </td>
-        <td>
-          <input type="password" name="password2" id="password2" value="<% params.password2 | html_entity %>" />
-        </td>
-      </tr>
-    </table>
-    <br />
-    [&nbsp;<button action="submit" class="textButton">register</button>&nbsp;]
-    [&nbsp;<a href="index" class="bracketButton">go&nbsp;back</a>&nbsp;]
-    <br /><br />
-    <em>By registering, you agree to be bound by the policies set forward in our <a href="charter">charter</a>.</em>
-  </form>
+	<form class="login" method="POST" action="register">
+		<table>
+			<tr>
+				<td>
+					<label for="email">Email address:</label>
+				</td>
+				<td>
+					<input type="email" name="email" id="email" value="<% params.email | html_entity %>" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="password">Password:</label>
+				</td>
+				<td>
+					<input type="password" name="password" id="password" value="<% params.password | html_entity %>" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="password2">Confirm password:</label>
+				</td>
+				<td>
+					<input type="password" name="password2" id="password2" value="<% params.password2 | html_entity %>" />
+				</td>
+			</tr>
+		</table>
+		<br />
+		[&nbsp;<button action="submit" class="textButton">register</button>&nbsp;]
+		[&nbsp;<a href="index" class="bracketButton">go&nbsp;back</a>&nbsp;]
+		<br /><br />
+		<em>By registering, you agree to be bound by the policies set forward in our <a href="charter">charter</a>.</em>
+	</form>
 </div>

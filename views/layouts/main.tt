@@ -1,31 +1,31 @@
 <!DOCTYPE HTML>
 <html lang=en>
-  <head>
-    <meta charset="utf8" />
-    <meta name="viewport" content="width=device-width" />
-    <% IF redir %>
-    <meta http-equiv="refresh" content="0;<% redir %>" />
-    <% END %>
-    <title>cybNIC</title>
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
-  </head>
-  <body>
-    <% IF vars.auth %>
-    <div class="toolbar">
-      <div class="body">
-        <span>
-          Logged in as <% vars.email | html_entity %>
-        </span>
-        <span style="float:right;">
-          <form action="/logout" method="POST">
-            [&nbsp;<a href="/domains" class="bracketButton">domains</a>&nbsp;]
-            [&nbsp;<a href="/account" class="bracketButton">account</a>&nbsp;]
-            [&nbsp;<button class="textButton" action="submit">log&nbsp;out</button>&nbsp;]
-          </form>
-        </span>
-      </div>
-    </div>
-    <% END %>
-    <% content %>
-  </body>
+	<head>
+		<meta charset="utf8" />
+		<meta name="viewport" content="width=device-width" />
+		<% IF redir %>
+		<meta http-equiv="refresh" content="0;<% redir %>" />
+		<% END %>
+		<title>cybNIC</title>
+		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+	</head>
+	<body>
+		<% IF vars.auth %>
+		<div class="toolbar">
+			<div class="body">
+				<span>
+					Logged in as <% vars.email | html_entity %>
+				</span>
+				<span style="float:right;">
+					<form action="/logout" method="POST">
+						[&nbsp;<a href="/domains" class="bracketButton">domains</a>&nbsp;]
+						[&nbsp;<a href="/account" class="bracketButton">account</a>&nbsp;]
+						[&nbsp;<button class="textButton" action="submit">log&nbsp;out</button>&nbsp;]
+					</form>
+				</span>
+			</div>
+		</div>
+		<% END %>
+		<% content %>
+	</body>
 </html>

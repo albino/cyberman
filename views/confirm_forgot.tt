@@ -1,49 +1,49 @@
 <center>
-  <br />
-  <h1>Update your password</h1>
-  <br />
-  <% IF err %>
-  <div class="msgBox">
-    Error:
-    <% IF e_bad_link %>
-    The link you clicked on is invalid!
-    <% ELSIF e_no_pass %>
-    You must enter a password.
-    <% ELSIF e_pass_len %>
-    Your password must be at least 8 characters long.
-    <% ELSIF e_pass_mismatch %>
-    The two passwords you entered do not match.
-    <% END%>
-  </div>
-  <br /><br />
-  <% END %>
+	<br />
+	<h1>Update your password</h1>
+	<br />
+	<% IF err %>
+	<div class="msgBox">
+		Error:
+		<% IF e_bad_link %>
+		The link you clicked on is invalid!
+		<% ELSIF e_no_pass %>
+		You must enter a password.
+		<% ELSIF e_pass_len %>
+		Your password must be at least 8 characters long.
+		<% ELSIF e_pass_mismatch %>
+		The two passwords you entered do not match.
+		<% END%>
+	</div>
+	<br /><br />
+	<% END %>
 </center>
 
 <div class="body">
-  Enter a new password and click update.
-  <br />
-  <form method="POST" class="login" action="confirm_forgot">
-  <input type="hidden" name="e" value="<% params.e | html_entity %>" />
-  <input type="hidden" name="t" value="<% params.t | html_entity %>" />
-    <table>
-      <tr>
-        <td>
-          <label for="password">New password:</label>
-        </td>
-        <td>
-          <input type="password" name="password" id="password" />
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <label for="password2">New password (confirm):</label>
-        </td>
-        <td>
-          <input type="password" name="password2" id="password2" />
-        </td>
-      </tr>
-    </table>
-    <br />
-    [&nbsp;<button class="textButton" action="submit">update</button>&nbsp;]
-  </form>
+	Enter a new password and click update.
+	<br />
+	<form method="POST" class="login" action="confirm_forgot">
+		<input type="hidden" name="e" value="<% params.e | html_entity %>" />
+		<input type="hidden" name="t" value="<% params.t | html_entity %>" />
+		<table>
+			<tr>
+				<td>
+					<label for="password">New password:</label>
+				</td>
+				<td>
+					<input type="password" name="password" id="password" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="password2">New password (confirm):</label>
+				</td>
+				<td>
+					<input type="password" name="password2" id="password2" />
+				</td>
+			</tr>
+		</table>
+		<br />
+		[&nbsp;<button class="textButton" action="submit">update</button>&nbsp;]
+	</form>
 </div>

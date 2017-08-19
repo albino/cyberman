@@ -6,159 +6,159 @@ use URI::Escape;
 use cyberman::Helper;
 
 get '/account' => sub {
-  return auth_test() if auth_test();
+	return auth_test() if auth_test();
 
-  my $user = database->quick_select(
-    "user",
-    {
-      "id" => vars->{"auth"},
-    },
-  );
+	my $user = database->quick_select(
+		"user",
+		{
+			"id" => vars->{"auth"},
+		},
+	);
 
-  template 'account' => {
-    "user" => $user,
-  };
+	template 'account' => {
+		"user" => $user,
+	};
 };
 
 post '/account' => sub {
-  return auth_test() if auth_test();
+	return auth_test() if auth_test();
 
-  my %errs;
-  my $new_pass = 0;
+	my %errs;
+	my $new_pass = 0;
 
-  my $user = database->quick_select (
-    "user",
-    {
-      "id" => vars->{"auth"},
-    }
-  );
+	my $user = database->quick_select (
+		"user",
+		{
+			"id" => vars->{"auth"},
+		}
+	);
 
-  if (!param("email")) {
-    $errs{"e_no_email"} = 1;
-  }
+	if (!param("email")) {
+		$errs{"e_no_email"} = 1;
+	}
 
-  if (param("email") ne $user->{"email"}) {
-    my $result = database->quick_select (
-      "user",
-      {
-        "email" => param("email"),
-      },
-    );
-    
-    if ($result) {
-      $errs{"e_email_exists"} = 1;
-    }
-  }
+	if (param("email") ne $user->{"email"}) {
+		my $result = database->quick_select (
+			"user",
+			{
+				"email" => param("email"),
+			},
+		);
 
-  if (param("password") || param("npassword") || param("npassword2")) {
-    $new_pass = 1;
+		if ($result) {
+			$errs{"e_email_exists"} = 1;
+		}
+	}
 
-    my ($o_hash, $o_salt) = hash_password(param("password"), $user->{"salt"});
-    if ($o_hash ne $user->{"password"}) {
-      $errs{"e_wrong_pass"} = 1;
-    }
+	if (param("password") || param("npassword") || param("npassword2")) {
+		$new_pass = 1;
 
-    if (param "npassword" ne param "npassword2") {
-      $errs{"e_pass_mismatch"} = 1;
-    } elsif (length(param "npassword") < 8) {
-      $errs{"e_pass_len"} = 1;
-    }
-  }
+		my ($o_hash, $o_salt) = hash_password(param("password"), $user->{"salt"});
+		if ($o_hash ne $user->{"password"}) {
+			$errs{"e_wrong_pass"} = 1;
+		}
 
-  if (scalar(keys %errs) != 0) {
-    return template 'account' => {
-      "user" => $user,
-      error => 1,
-      %errs,
-    };
-  }
+		if (param "npassword" ne param "npassword2") {
+			$errs{"e_pass_mismatch"} = 1;
+		} elsif (length(param "npassword") < 8) {
+			$errs{"e_pass_len"} = 1;
+		}
+	}
 
-  if (param("email") ne $user->{"email"}) {
-    my $conftoken = randstring(16);
+	if (scalar(keys %errs) != 0) {
+		return template 'account' => {
+			"user" => $user,
+			error => 1,
+			%errs,
+		};
+	}
 
-    database->quick_update (
-      "user",
-      {
-        "id" => vars->{"auth"},
-      },
-      {
-        "newemail" => param("email"),
-        "conftoken" => $conftoken,
-      },
-    );
+	if (param("email") ne $user->{"email"}) {
+		my $conftoken = randstring(16);
 
-    my $email = template 'email/update' => {
-      "link" => config->{"mail"}->{"baseurl"} . "/confirm_update?o=" . uri_escape($user->{"email"}) . "&n=" . uri_escape(param "email") . "&t=$conftoken",
-    },
-    {
-      "layout" => undef,
-    };
-    send_email(param("email"), $email);
-  }
+		database->quick_update (
+			"user",
+			{
+				"id" => vars->{"auth"},
+			},
+			{
+				"newemail" => param("email"),
+				"conftoken" => $conftoken,
+			},
+		);
 
-  if ($new_pass) {
-    my ($hash, $salt) = hash_password(param "npassword");
-    database->quick_update (
-      "user",
-      {
-        "id" => vars->{"auth"},
-      },
-      {
-        "password" => $hash,
-        "salt" => $salt,
-      },
-    );
+		my $email = template 'email/update' => {
+			"link" => config->{"mail"}->{"baseurl"} . "/confirm_update?o=" . uri_escape($user->{"email"}) . "&n=" . uri_escape(param "email") . "&t=$conftoken",
+		},
+		{
+			"layout" => undef,
+		};
+		send_email(param("email"), $email);
+	}
 
-    database->quick_delete (
-      "session",
-      {
-        "uid" => vars->{"auth"},
-      },
-    );
+	if ($new_pass) {
+		my ($hash, $salt) = hash_password(param "npassword");
+		database->quick_update (
+			"user",
+			{
+				"id" => vars->{"auth"},
+			},
+			{
+				"password" => $hash,
+				"salt" => $salt,
+			},
+		);
 
-    return template 'redir' => {
-      "redir" => "login?pwchange=1",
-    };
-  }
+		database->quick_delete (
+			"session",
+			{
+				"uid" => vars->{"auth"},
+			},
+		);
 
-  $user = database->quick_select (
-    "user",
-    {
-      "id" => vars->{"auth"},
-    },
-  );
+		return template 'redir' => {
+			"redir" => "login?pwchange=1",
+		};
+	}
 
-  template 'account' => {
-    updated => 1,
-    user => $user,
-  };
+	$user = database->quick_select (
+		"user",
+		{
+			"id" => vars->{"auth"},
+		},
+	);
+
+	template 'account' => {
+		updated => 1,
+		user => $user,
+	};
 };
 
 get '/confirm_update' => sub {
-  my $user = database->quick_select(
-    "user",
-    {
-      "email" => param("o"),
-      "newemail" => param("n"),
-      "conftoken" => param("t"),
-    },
-  );
+	my $user = database->quick_select(
+		"user",
+		{
+			"email" => param("o"),
+			"newemail" => param("n"),
+			"conftoken" => param("t"),
+		},
+	);
 
-  if (!$user) {
-    return "No such user/token!";
-  }
+	if (!$user) {
+		return "No such user/token!";
+	}
 
-  database->quick_update(
-    "user",
-    {
-      "id" => $user->{"id"},
-    },
-    {
-      "email" => param("n"),
-    },
-  );
+	database->quick_update(
+		"user",
+		{
+			"id" => $user->{"id"},
+		},
+		{
+			"email" => param("n"),
+		},
+	);
 
-  template 'confirmed';
+	template 'confirmed';
 };
 
 true;

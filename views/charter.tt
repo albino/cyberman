@@ -1,11 +1,11 @@
 <center>
-  <br />
-  <h1>.cyb charter</h1>
-  <br />
+	<br />
+	<h1>.cyb charter</h1>
+	<br />
 </center>
 
 <div class="body">
-  <pre style="white-space:pre-wrap;word-wrap:break-word">
+	<pre style="white-space:pre-wrap;word-wrap:break-word">
 Description
 - - - - - -
 
@@ -48,5 +48,5 @@ Contacts
 * DNS master - hostmaster@opennic.cyb
 * Abuse -  abuse@opennic.cyb
 * Webmaster - webmaster@opennic.cyb
-  </pre>
+	</pre>
 </div>

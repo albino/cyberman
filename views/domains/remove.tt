@@ -1,32 +1,32 @@
 <% IF domain %>
 <center>
-  <br />
-  <h1>Removal of <% domain.name %>.<% vars.config.tld %></h1>
-  <br />
+	<br />
+	<h1>Removal of <% domain.name %>.<% vars.config.tld %></h1>
+	<br />
 </center>
 
 <div class="body">
-  <p>
-    You are about to permanently remove <% domain.name %>.<% vars.config.tld %> and all its records.
-  </p>
-  <p style="font-size:1.6em">
-    YOU ARE ABOUT TO PERMANENTLY REMOVE <% domain.name %>.<% vars.config.tld %> AND ALL ITS RECORDS!
-  </p>
-  <p>
-    There is <strong>no</strong> guarantee that you will be able to re-register this domain at a later date.
-  </p>
-  <p>
-    <center>
-      <form method="POST">
-        [&nbsp;<button class="textButton" action="submit">yes,&nbsp;destroy&nbsp;the&nbsp;domain</button>&nbsp;]
-      </form>
-    </center>
-  </p>
+	<p>
+	You are about to permanently remove <% domain.name %>.<% vars.config.tld %> and all its records.
+	</p>
+	<p style="font-size:1.6em">
+	YOU ARE ABOUT TO PERMANENTLY REMOVE <% domain.name %>.<% vars.config.tld %> AND ALL ITS RECORDS!
+	</p>
+	<p>
+	There is <strong>no</strong> guarantee that you will be able to re-register this domain at a later date.
+	</p>
+	<p>
+	<center>
+		<form method="POST">
+			[&nbsp;<button class="textButton" action="submit">yes,&nbsp;destroy&nbsp;the&nbsp;domain</button>&nbsp;]
+		</form>
+	</center>
+	</p>
 </div>
 <% ELSE %>
 <center>
-  No such domain!
-  <br />
-  [&nbsp;<a href="../../domains" class="bracketButton">go&nbsp;back</a>&nbsp;]
+	No such domain!
+	<br />
+	[&nbsp;<a href="../../domains" class="bracketButton">go&nbsp;back</a>&nbsp;]
 </center>
 <% END %>

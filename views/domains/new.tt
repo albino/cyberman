@@ -1,40 +1,40 @@
 <center>
-  <br />
-  <h1>Register a domain</h1>
-  <br />
+	<br />
+	<h1>Register a domain</h1>
+	<br />
 </center>
 
 <% IF error %>
 <center>
-  <div class="msgBox">
-    <% IF e_no_name %>
-    You did not specify a domain to register.
-    <% END %>
-    <% IF e_exists %>
-    The domain '<% params.name | html_entity %>.<% vars.config.tld %>' has already been registered. Please choose a different domain name.
-    <% END %>
-    <% IF e_chars %>
-    The domain '<% params.name | html_entity %>.<% vars.config.tld %>' contains invalid characters.
-    <% END %>
-    <% IF e_reserved %>
-    The domain '<% params.name | html_entity %>.<% vars.config.tld %>' is reserved for use by the registry.
-    <% END %>
-  </div>
-  <br /><br />
+	<div class="msgBox">
+		<% IF e_no_name %>
+		You did not specify a domain to register.
+		<% END %>
+		<% IF e_exists %>
+		The domain '<% params.name | html_entity %>.<% vars.config.tld %>' has already been registered. Please choose a different domain name.
+		<% END %>
+		<% IF e_chars %>
+		The domain '<% params.name | html_entity %>.<% vars.config.tld %>' contains invalid characters.
+		<% END %>
+		<% IF e_reserved %>
+		The domain '<% params.name | html_entity %>.<% vars.config.tld %>' is reserved for use by the registry.
+		<% END %>
+	</div>
+	<br /><br />
 </center>
 <% END %>
 
 <div class="body">
-  Please choose a domain to register:
-  <br /><br />
+	Please choose a domain to register:
+	<br /><br />
 
-  <form method="POST" class="login">
-    <input type="text" name="name" id="name" onkeyup="checkAvailability()">.<% vars.config.tld %>
-    <br /><br />
-    [&nbsp;<button action="submit" class="textButton">register&nbsp;domain</button>&nbsp;]
-    [&nbsp;<a href="../domains" class="bracketButton">go&nbsp;back</a>&nbsp;]
-  </form>
-  <span id="avail"></span>
+	<form method="POST" class="login">
+		<input type="text" name="name" id="name" onkeyup="checkAvailability()">.<% vars.config.tld %>
+		<br /><br />
+		[&nbsp;<button action="submit" class="textButton">register&nbsp;domain</button>&nbsp;]
+		[&nbsp;<a href="../domains" class="bracketButton">go&nbsp;back</a>&nbsp;]
+	</form>
+	<span id="avail"></span>
 </div>
 
 <script type="text/javascript" src="/js/domain_check.js"></script>
