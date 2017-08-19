@@ -28,17 +28,17 @@ reserved_domains:
 
 zonewriter:
   # Values used for SOA
-  ns: 'ns12.opennic.glue'
+  ns: 'ns12.opennic.glue.'
   responsible: 'hostmaster.opennic.cyb.'
   file: '/var/nsd/zones/master/cyb'
   include:
     # Optionally, you can have the zonewriter include another file
     # in the zone, which allows you to define some records manually
-    enabled: true
+    enabled: 1
     file: 'human_cyb'
 
 mail:
-  enabled: true
+  enabled: 1
   # Currently, the local MTA is used and there's no config option
   from: 'cybnic@uptime.party'
   baseurl: 'http://opennic.cyb'
