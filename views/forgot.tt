@@ -1,0 +1,27 @@
+<center>
+  <br />
+  <h1 >Forgotten password</h1>
+  <br />
+  <% IF err || success %>
+  <div class="msgBox">
+    <% IF e_no_user %>
+    Error: There is no user account associated with that email address.
+    <% END %>
+    <% IF success %>
+    An email has been sent to <% params.email | html_entity %>. Please click the link to reset your password.
+    <% END %>
+  </div>
+  <br /><br />
+  <% END %>
+</center>
+
+<div class="body">
+  Enter your email into the field below and we'll send an email with a link to reset your password.
+  <br />
+  <form method="POST">
+    <label for="email">Email address:</label>
+    <input type="email" name="email" id="email" value="<% params.email | html_entity %>"/>
+    <br />
+    [&nbsp;<button action="submit" class="textButton">submit</button>&nbsp;]
+  </form>
+</div>

@@ -9,6 +9,7 @@ use cyberman::Account;
 use cyberman::Helper;
 use cyberman::API;
 use cyberman::Records;
+use cyberman::Forgot;
 
 # Index route, hook and helper functions for authentication
 
