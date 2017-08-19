@@ -12,7 +12,7 @@
 		<ul>
 			<% IF e_bad_value %>
 			<li>The value you entered was invalid.
-				<% IF params.type == 'NS' %>(Did you forget the trailing '.'?)<% END %></li>
+				<% IF params.type == 'NS' || params.type == 'CNAME' %>(Did you forget the trailing '.'?)<% END %></li>
 			<% END %>
 			<% IF e_bad_type %>
 			<li>You must choose a type for the record.</li>
@@ -39,7 +39,7 @@
 				</td>
 				<td>
 					<input type="text" style="width: 100px" name="rname" id="rname" placeholder="Use @ for root"
-																																		 value="<% params.rname | html_entity %>" />.<% domain.name | html_entity %>.<% vars.config.tld %>
+					 value="<% params.rname | html_entity %>" />.<% domain.name | html_entity %>.<% vars.config.tld %>
 				</td>
 			</tr>
 			<tr>
@@ -50,9 +50,11 @@
 				</td>
 				<td>
 					<select name="type" id="type">
+						<%# TODO: machine generate this %>
 						<option value="">- Select -</option>
 						<option value="A">A</option>
 						<option value="AAAA">AAAA</option>
+						<option value="CNAME">CNAME</option>
 						<option value="NS">NS</option>
 					</select>
 				</td>
