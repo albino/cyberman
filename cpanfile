@@ -10,7 +10,6 @@ requires "DBD::SQLite" => "0";
 requires "HTML::Entities" => "0";
 requires "Digest::Bcrypt" => "0";
 requires "Math::Random::Secure" => "0";
-requires "Switch" => "0";
 requires "Email::Simple" => "0";
 requires "Email::Simple::Creator" => "0";
 requires "Email::Sender::Simple" => "0";
