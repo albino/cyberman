@@ -5,13 +5,13 @@
 
 	<% IF params.new %>
 	<div class="msgBox">
-		The domain '<% params.new | html_entity %>.<% vars.config.tld %>' was registered successfully!
+		The domain <em><% params.new | html_entity %>.<% vars.config.tld %></em> was registered successfully!
 	</div>
 	<br /><br />
 	<% END %>
 	<% IF params.removed %>
 	<div class="msgBox">
-		The domain '<% params.removed | html_entity %>.<% vars.config.tld %>' was removed successfully.
+		The domain <em><% params.removed | html_entity %>.<% vars.config.tld %></em> was removed successfully.
 	</div>
 	<br /><br />
 	<% END %>
@@ -34,7 +34,7 @@
 
 	<br />
 
-	<table class="domains">
+	<table class="domains t">
 		<tr>
 			<td>
 				<strong>Domain name</strong>

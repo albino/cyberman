@@ -35,7 +35,7 @@
 
   <br />
 
-  <table style="width:100%">
+  <table style="width:100%" class="t">
     <tr>
       <td>
         <strong>Name</strong>
