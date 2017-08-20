@@ -115,6 +115,12 @@ post '/domains/:name/remove' => sub {
 			"name" => param("name"),
 		},
 	);
+	database->quick_delete(
+		"record",
+		{
+			"domainid" => $domain->{"id"},
+		},
+	);
 
 	template redir => {
 		redir => "../../domains?removed=$domain->{name}",
