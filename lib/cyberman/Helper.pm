@@ -65,7 +65,7 @@ sub hash_password {
 
 sub check_name {
 	my $name = shift;
-	if ($name =~ m/^[a-z0-9]([a-z0-9\-_]*[a-z0-9])?$/) {
+	if ($name =~ m/^[a-z0-9]([a-z0-9\-_]*[a-z0-9])?$/ && length($name) <= 63) {
 		return 1;
 	} else {
 		return 0;
