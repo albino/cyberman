@@ -70,6 +70,7 @@ post '/domains/new' => sub {
 		{
 			"name" => $name,
 			"ownerid" => vars->{"auth"},
+			"since" => time,
 		},
 	);
 

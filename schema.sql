@@ -3,7 +3,7 @@ create table cyberman (
 	id integer primary key,
 	dbrev integer not null
 );
-insert into cyberman (dbrev) values (3);
+insert into cyberman (dbrev) values (4);
 
 drop table if exists user;
 create table user (
@@ -30,7 +30,8 @@ create table domain (
 	id integer primary key,
 	name string not null,
 	ownerid integer not null,
-	lastsid integer not null default 0
+	lastsid integer not null default 0,
+	since integer not null default 1503187200
 );
 
 drop table if exists record;
