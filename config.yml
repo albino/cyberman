@@ -15,6 +15,12 @@ plugins:
     driver: 'SQLite'
     dbname: 'db.sqlite'
 
+stylesheets:
+  default: "cyberpunk"
+  available:
+    - "cyberpunk"
+    - "light"
+
 tld: 'cyb'
 
 reserved_domains:

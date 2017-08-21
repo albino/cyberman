@@ -17,6 +17,7 @@ get '/account' => sub {
 
 	template 'account' => {
 		"user" => $user,
+		"updated" => param("updated") ? 1 : 0,
 	};
 };
 
@@ -63,6 +64,10 @@ post '/account' => sub {
 		} elsif (length(param "npassword") < 8) {
 			$errs{"e_pass_len"} = 1;
 		}
+	}
+
+	if (!grep {$_ eq param("stylesheet")} @{ config->{"stylesheets"}->{"available"} }) {
+		$errs{"e_bad_sheet"} = 1;
 	}
 
 	if (scalar(keys %errs) != 0) {
@@ -120,17 +125,34 @@ post '/account' => sub {
 			"redir" => "login?pwchange=1",
 		};
 	}
+	
+	database->quick_update (
+		"user",
+		{
+			"id" => vars->{"auth"},
+		},
+		{
+			"stylesheet" => param("stylesheet"),
+		},
+	);
 
-	$user = database->quick_select (
+	my $newuser = database->quick_select (
 		"user",
 		{
 			"id" => vars->{"auth"},
 		},
 	);
 
+	# Instant stylesheet update
+	if ($user->{"stylesheet"} ne $newuser->{"stylesheet"}) {
+		return template 'redir' => {
+			"redir" => "account?updated=1",
+		};
+	}
+
 	template 'account' => {
 		updated => 1,
-		user => $user,
+		user => $newuser,
 	};
 };
 

@@ -40,21 +40,26 @@ hook 'before' => sub {
 	my $uid = cookieval("id");
 	my $token = cookieval("token");
 	my $auth = 0;
-	my $email;
+	my $user;
 	if ($uid && $token) {
 		$auth = get_auth($uid, $token);
-		$email = database->quick_lookup(
+		$user = database->quick_select(
 			"user",
 			{
 				"id" => $uid,
 			},
-			"email",
 		);
 	}
 
 	var auth => $auth;
-	var email => $email;
+	var email => $user->{"email"};
 	var config => config();
+
+	if (grep {$_ eq $user->{"stylesheet"}} @{ config->{"stylesheets"}->{"available"} }) {
+		var stylesheet => $user->{"stylesheet"};
+	} else {
+		var stylesheet => config->{"stylesheets"}->{"default"};
+	}
 };
 
 get qr{^/(index)?$} => sub {

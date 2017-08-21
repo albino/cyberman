@@ -31,6 +31,9 @@
 			<% IF e_email_exists %>
 			<li>There is already an account with that email address.</li>
 			<% END %>
+			<% IF e_bad_sheet %>
+			<li>The stylesheet selected was invalid.</li>
+			<% END %>
 		</ul>
 	</div>
 </div>
@@ -70,6 +73,22 @@
 				</td>
 				<td>
 					<input type="password" name="npassword2" id="npassword2" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="stylesheet">Stylesheet name:</label>
+				</td>
+				<td>
+					<select id="stylesheet" name="stylesheet">
+						<% FOREACH sheet IN vars.config.stylesheets.available %>
+						<option name="<% sheet | html_entity %>"
+							<% IF user.stylesheet == sheet %>
+							selected=selected
+							<% END %>
+						><% sheet | html_entity %></option>
+						<% END %>
+					</select>
 				</td>
 			</tr>
 		</table>

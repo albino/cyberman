@@ -7,7 +7,7 @@
 		<meta http-equiv="refresh" content="0;<% redir %>" />
 		<% END %>
 		<title>cybNIC</title>
-		<link rel="stylesheet" type="text/css" href="/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/css/<% vars.stylesheet %>.css" />
 	</head>
 	<body>
 		<div class="inner">
