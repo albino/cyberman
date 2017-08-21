@@ -17,7 +17,7 @@
 		<br />
 		<ul>
 			<% IF e_no_email %>
-			<li>You need too enter a valid email address.</li>
+			<li>You need to enter a valid email address.</li>
 			<% END %>
 			<% IF e_wrong_pass %>
 			<li>The password you entered is incorrect.</li>
