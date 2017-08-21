@@ -38,6 +38,33 @@ button.textButton:hover {
 	text-decoration: underline;
 }
 
+a.menuBtn {
+	text-decoration: none;
+}
+button.menuBtn {
+	background: none !important;
+	color: inherit;
+	border: none;
+	padding: 0 !important;
+	font: inherit;
+	cursor: pointer;
+}
+.menuBtn {
+	text-transform: lowercase;
+}
+.menuBtn:hover {
+	text-decoration: underline;
+}
+.menuBtnW:before {
+	content: "[\00a0";
+}
+.menuBtnW:after {
+	content: "\00a0] ";
+}
+div.toolbar form {
+	display: inline;
+}
+
 form.login>table>tbody>tr>td>label {
 	margin-right: 10px;
 }

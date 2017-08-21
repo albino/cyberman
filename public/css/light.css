@@ -67,6 +67,36 @@ button.textButton:hover {
 	text-decoration: underline;
 }
 
+a.menuBtn {
+	text-decoration: none;
+}
+button.menuBtn {
+	background: none !important;
+	color: inherit;
+	border: none;
+	padding: 0 !important;
+	font: inherit;
+	cursor: pointer;
+}
+.menuBtnW:hover {
+	background-color: #c9c9c9;
+}
+.menuBtnW {
+	display: inline-block;
+	height: 100%;
+	padding: 10px;
+	position: relative;
+	top: -10px;
+	background-color: #ddd;
+	border-right: 1px solid #bbb;
+}
+.menuBtnW:first-child {
+	border-left: 1px solid #bbb;
+}
+div.toolbar form {
+	display: inline;
+}
+
 form.login>table>tbody>tr>td>label {
 	margin-right: 10px;
 }
