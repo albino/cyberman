@@ -55,7 +55,7 @@ hook 'before' => sub {
 	var email => $user->{"email"};
 	var config => config();
 
-	if (grep {$_ eq $user->{"stylesheet"}} @{ config->{"stylesheets"}->{"available"} }) {
+	if ($user->{"stylesheet"} && grep {$_ eq $user->{"stylesheet"}} @{ config->{"stylesheets"}->{"available"} }) {
 		var stylesheet => $user->{"stylesheet"};
 	} else {
 		var stylesheet => config->{"stylesheets"}->{"default"};

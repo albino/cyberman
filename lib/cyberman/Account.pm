@@ -144,6 +144,9 @@ post '/account' => sub {
 	);
 
 	# Instant stylesheet update
+	if (!$user->{"stylesheet"}) {
+		$user->{"stylesheet"} = 0;
+	}
 	if ($user->{"stylesheet"} ne $newuser->{"stylesheet"}) {
 		return template 'redir' => {
 			"redir" => "account?updated=1",
