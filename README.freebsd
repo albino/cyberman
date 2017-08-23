@@ -1,0 +1,85 @@
+Setting up Cyberman on FreeBSD with Starman + nginx
+
+1. Get Cyberman.
+
+Get a copy of Cyberman and place it in a directory of your choice.  I use /var/www/cyberman.
+chown the directory to www:www, or the user of your choice.  Note that if you change this, you'll have to update the user specified for starman in rc.conf, and for the logfile in newsyslog.conf
+
+
+2. Install the following packages:
+
+www/p5-starman
+databases/sqlite3
+
+p5-YAML
+p5-YAML-Tiny
+p5-URL-Encode-XS
+p5-CGI-Deurl-XS
+p5-HTTP-Parser-XS
+www/p5-Dancer2
+databases/p5-Dancer2-Plugin-Database
+p5-DBD-SQLite
+p5-Digest-Bcrypt
+p5-Math-Random-Secure
+p5-Switch
+p5-HTML-Parser
+p5-Email-Simple
+p5-Email-Sender
+p5-URI
+p5-Plack-Middleware-Deflater
+p5-Plack-Middleware-Session
+p5-Digest-SHA1
+
+#for Plack::Middleware::CSRFBlock -
+fetch -o /usr/local/lib/perl5/site_perl/Plack/Middleware/CSRFBlock.pm https://st.aticpan.org/source/MATTP/Plack-Middleware-CSRFBlock-0.10/lib/Plack/Middleware/CSRFBlock.pm
+
+
+3. Add the following lines to your rc.conf files:
+
+starman_enable="YES"
+starman_config="/var/www/cyberman/app.psgi"
+starman_pidfile="/var/tmp/starman.pid"
+starman_flags="--listen 127.0.0.1:5000 --error-log /var/log/cyberman.log"
+
+Add '-E development' to enable extensive logging and error displays.  The --listen argument can also take 'ip:port' and '/path/to/socket' arguments.
+
+
+4. Create /usr/local/etc/newsyslog.conf.d/cyberman with the following contents:
+
+# logfilename          [owner:group]    mode count size when  flags [/pid_file] [sig_num]
+/var/log/cyberman.log  www:www          644  3     100  @T00  J
+
+You may need to create the directory /usr/local/etc/newsyslog.conf.d
+Touch the file /var/log/cyberman.log, and chown it to www:www 
+
+
+5. Run "service starman start" to start cyberman.
+
+
+6. Sample Nginx config:
+
+        server {
+                listen          80;
+        #       listen          443 ssl http2;
+                server_name     register.example.com;
+
+        #       ssl_certificate   cert.pem;
+        #       ssl_certificate_key  cert.key;
+
+        #       ssl_session_cache       shared:SSL:1m;
+        #       ssl_session_timeout  5m;
+        #       ssl_ciphers  HIGH:!aNULL:!MD5;
+        #       ssl_prefer_server_ciphers  on;
+
+                error_page 404  /404.html;
+                # redirect server error pages to the static page /50x.html
+                error_page      500 502 503 504 /50x.html;
+                location = /50x.html {
+                        root    /usr/local/www/nginx-dist;
+                }
+
+                root    /var/www/html;
+                location / {
+                        proxy_pass http://127.0.0.1:5000;
+                }
+        }
