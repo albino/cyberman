@@ -1,4 +1,4 @@
-Setting up Cyberman on FreeBSD
+Setting up Cyberman on FreeBSD with Starman + nginx
 
 1. Get Cyberman.
 
@@ -39,9 +39,9 @@ fetch -o /usr/local/lib/perl5/site_perl/Plack/Middleware/CSRFBlock.pm https://st
 starman_enable="YES"
 starman_config="/var/www/cyberman/app.psgi"
 starman_pidfile="/var/tmp/starman.pid"
-starman_flags="--listen :5000 --error-log /var/log/cyberman.log -E development"
+starman_flags="--listen 127.0.0.1:5000 --error-log /var/log/cyberman.log"
 
-Remove the '-E development' to use production logging and error handling.  The --listen argument can also take 'ip:port' and '/path/to/socket' arguments.
+Add '-E development' to enable extensive logging and error displays.  The --listen argument can also take 'ip:port' and '/path/to/socket' arguments.
 
 
 4. Create /usr/local/etc/newsyslog.conf.d/cyberman with the following contents:
