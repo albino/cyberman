@@ -20,6 +20,7 @@
 			<% IF e_bad_name %>
 			<li>The name of the record is invalid.</li>
 			<% END %>
+			<li><% message %></li>
 		</ul>
 	</div>
 </div>
