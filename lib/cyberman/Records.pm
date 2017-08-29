@@ -51,19 +51,6 @@ get '/domains/:name/records/add' => sub {
 	};
 };
 
-my %patterns = (
-	"ipv4" => [qr/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}$/],
-	"ipv6" => [qr/^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/],
-	"name" => [qr/^([a-zA-Z0-9]([a-zA-Z0-9-_]*[a-zA-Z0-9])?\.)+$/, qr/^(.{1,63}\.)+$/, qr/^.{0,252}$/],
-);
-
-my %tests = ( IN => {
-	"A" => "ipv4",
-	"AAAA" => "ipv6",
-	"NS" => "name",
-	"CNAME" => "name",
-});
-
 post '/domains/:name/records/add' => sub {
 	my $domain = database->quick_select(
 		"domain",
@@ -78,28 +65,15 @@ post '/domains/:name/records/add' => sub {
 
 	return auth_test($domain->{"ownerid"}) if auth_test($domain->{"ownerid"});
 
-	my %errs;
+	my ( %errs, $valid, $why );
+	# 1 is a stand in for the TTL
+	($valid, $why) = validate_record(param("rname"), 1, 'IN', param("type"), param("value"));
 
-	if ( exists($tests{"IN"}->{param("type")}) ) {
-		my @patterns = @{ $patterns{ $tests{"IN"}->{param("type")} } };
-		for my $p (@patterns) {
-			if (param("value") !~ m/$p/) {
-				$errs{"e_bad_value"} = 1;
-			}
-		}
-	} else {
-		$errs{"e_bad_type"} = 1;
-	}
-
-	if (param("rname") !~ m/^(@|([a-zA-Z0-9]([a-zA-Z0-9-_]*[a-zA-Z0-9])?\.)*[a-zA-Z0-9]([a-zA-Z0-9-_]*[a-zA-Z0-9])?)$/
-		|| length(param("rname")) > 63) {
-		$errs{"e_bad_name"} = 1;
-	}
-
-	if (scalar(keys(%errs)) != 0) {
+	if (!$valid) {
+		$errs{"e_bad_value"} = 1;
 		return template 'records/add' => {
 			domain => $domain,
-			%errs,
+			message => $why,
 			error => 1,
 		};
 	}
