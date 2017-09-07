@@ -65,12 +65,11 @@ post '/domains/:name/records/add' => sub {
 
 	return auth_test($domain->{"ownerid"}) if auth_test($domain->{"ownerid"});
 
-	my ( %errs, $valid, $why );
+	my ( $valid, $why );
 	# 1 is a stand in for the TTL
 	($valid, $why) = validate_record(param("rname"), 1, 'IN', param("type"), param("value"));
 
 	if (!$valid) {
-		$errs{"e_bad_value"} = 1;
 		return template 'records/add' => {
 			domain => $domain,
 			message => $why,

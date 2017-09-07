@@ -10,16 +10,6 @@
 		There were some problems with your submission:
 		<br />
 		<ul>
-			<% IF e_bad_value %>
-			<li>The value you entered was invalid.
-				<% IF params.type == 'NS' || params.type == 'CNAME' %>(Did you forget the trailing '.'?)<% END %></li>
-			<% END %>
-			<% IF e_bad_type %>
-			<li>You must choose a type for the record.</li>
-			<% END %>
-			<% IF e_bad_name %>
-			<li>The name of the record is invalid.</li>
-			<% END %>
 			<li><% message %></li>
 		</ul>
 	</div>

@@ -99,36 +99,30 @@ sub validate_record {
 
 	test_ttl($ttl, \$retval, \$msg); #Same rules for all ttls for now
 
-	if ( $class eq 'IN' )
-	{
-		if ( $type eq 'A' )
-		{
+	if ( $class eq 'IN' ) {
+		if ( $type eq 'A' ) {
 			test_basic_name($label, \$retval, \$msg);
 			test_ipv4($rdata, \$retval, \$msg);
-			return $retval, $msg;
+			return wantarray ? ($retval, $msg) : $retval;
 		}
-		if ( $type eq 'AAAA' )
-		{
+		if ( $type eq 'AAAA' ) {
 			test_basic_name($label, \$retval, \$msg);
 			test_ipv6($rdata, \$retval, \$msg);
-			return $retval, $msg;
+			return wantarray ? ($retval, $msg) : $retval;
 		}
-		if ( $type eq 'CNAME' or $type eq 'NS' )
-		{
+		if ( $type eq 'CNAME' or $type eq 'NS' ) {
 			test_basic_name($label, \$retval, \$msg);
 			test_basic_name($rdata, \$retval, \$msg);
-			return $retval, $msg;
+			return wantarray ? ($retval, $msg) : $retval;
 		}
-		else
-		{
-			return 0, "Unsupported class/type: $class $type";
+		else {
+			return wantarray ? (0, "Unsupported class/type: $class $type") : 0;
 		}
 	}
-	else
-	{
-		return 0, "Unsupported class/type: $class $type";
+	else {
+		return wantarray ? (0, "Unsupported class/type: $class $type") : 0;
 	}
-	return 0, "ERROR: An internal error has occured.  Please report the following error code to the operators: HVR01";
+	die;
 }
 
 sub test_ttl {
@@ -136,8 +130,7 @@ sub test_ttl {
 	# min and max ttl should be defined in the config
 	my $min_ttl = 0;
 	my $max_ttl = 17280; # 2 days - Allowing too long is just asking for cache poisoning
-	if ( $ttl !~ /^\d+$/ or $ttl < $min_ttl or $ttl > $max_ttl )
-	{
+	if ( $ttl !~ /^\d+$/ or $ttl < $min_ttl or $ttl > $max_ttl ) {
 		$$msg .= "Error: TTL must be a number between $min_ttl and $max_ttl!\n";
 		$$retval = 0;
 	}
@@ -145,18 +138,15 @@ sub test_ttl {
 
 sub test_basic_name {
 	my ( $name, $retval, $msg ) = @_;
-	if ( $name !~ /(?:^\@$)|(?:^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-_]*[a-zA-Z0-9])?(?:\.|$))+$)/ )
-	{
+	if ( $name !~ /(?:^\@$)|(?:^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-_]*[a-zA-Z0-9])?(?:\.|$))+$)/ ) {
 		$$msg .= "Error: name contains invalid characters!\n";
 		$$retval = 0;
 	}
-	if ( length($name) > 255 ) 
-	{
+	if ( length($name) > 255 ) {
 		$$msg .= "Name exceeds maximum length of 255 octets!\n";
 		$$retval = 0;
 	}
-	if ( $name !~ /^(?:.{1,63}(?:\.|$))+/ )
-	{
+	if ( $name !~ /^(?:.{1,63}(?:\.|$))+/ ) {
 		$$msg .= "Error: label in name exceeds maximum length of 63 octets!\n";
 		$$retval = 0;
 	}
@@ -164,8 +154,7 @@ sub test_basic_name {
 
 sub test_ipv4 {
 	my ( $addr, $retval, $msg ) = @_;
-	if ( $addr !~ /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}$/ )
-	{
+	if ( $addr !~ /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(\.|$)){4}$/ ) {
 		$$msg .= "Invalid IPv4 address!\n";
 		$$retval = 0;
 	}
@@ -173,8 +162,8 @@ sub test_ipv4 {
 
 sub test_ipv6 {
 	my ( $addr, $retval, $msg ) = @_;
-	if ( $addr !~ /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/ ) # this is pure cancer and needs to be fixed
-	{
+	# This is pure cancer and needs to be fixed
+	if ( $addr !~ /^(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))$/ ) {
 		$$msg .= "Invalid IPv6 address!\n";
 		$$retval = 0;
 	}
