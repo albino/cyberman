@@ -20,6 +20,9 @@
 					<span style="float:right;">
 						<span class="menuBtnW"><a href="/domains" class="menuBtn">Domains</a></span><!--
 						--><span class="menuBtnW"><a href="/account" class="menuBtn">Account</a></span><!--
+						<% IF vars.admin %>
+						--><span class="menuBtnW"><a href="/admin" class="menuBtn">Admin</a></span><!--
+						<% END %>
 						--><form action="/logout" method="POST"><!--
 							--><span class="menuBtnW"><button action="submit" class="menuBtn">Log&nbsp;out</button></span>
 						</form>

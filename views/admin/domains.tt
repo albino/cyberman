@@ -1,0 +1,31 @@
+<center>
+	<br />
+	<h1>Domain list</h1>
+	<br />
+</center>
+
+<div class="body">
+	<em><% domains.size %> domains</em>
+	<table class="t domains">
+		<tr>
+			<td>
+				<strong>Name</strong>
+			</td>
+			<td>
+				<strong>Owner's email</strong>
+			</td>
+		</tr>
+		<% FOREACH d IN domains %>
+		<tr>
+			<td>
+				<% d.name | html_entity %>.cyb
+			</td>
+			<td id="owneremail-<% d.name | html_entity %>">
+				[&nbsp;<a class="bracketButton" onclick="showOwnerEmail('<% d.name | html_entity %>')" style="cursor:pointer">show</a>&nbsp;]
+			</td>
+		</tr>
+		<% END %>
+	</table>
+</div>
+
+<script type="text/javascript" src="/js/admin_domains.js"></script>

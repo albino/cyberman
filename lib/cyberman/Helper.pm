@@ -24,6 +24,12 @@ sub auth_test {
 		return template 'redir' => {
 			"redir" => "/index",
 		};
+	} elsif ($id && $id eq "admin" && !vars->{"admin"}) {
+		return template 'redir' => {
+			"redir" => "/index",
+		};
+	} elsif ($id && $id eq "admin" && vars->{"admin"}) {
+		return 0;
 	} elsif ($id && vars->{"auth"} != $id) {
 		return template 'redir' => {
 			"redir" => "/index",

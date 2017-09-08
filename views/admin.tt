@@ -1,0 +1,14 @@
+<center>
+	<br />
+	<h1>Admin</h1>
+	<br />
+</center>
+
+<div class="body">
+	<center>
+		[&nbsp;<a class="bracketButton" href="admin/users">view user list</a>&nbsp;]
+		[&nbsp;<a class="bracketButton" href="admin/domains">view domain list</a>&nbsp;]
+	</center>
+	<br />
+	I have <% usercount %> users and <% domaincount %> domains.
+</div>

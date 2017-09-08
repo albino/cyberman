@@ -1,0 +1,33 @@
+<center>
+	<br />
+	<h1>User list</h1>
+	<br />
+</center>
+
+<div class="body">
+	<em><% users.size %> users</em>
+	<table class="t domains">
+		<tr>
+			<td>
+				<strong>Email address</strong>
+			</td>
+			<td>
+				<strong>Active</strong>
+			</td>
+		</tr>
+		<% FOREACH u IN users %>
+		<tr>
+			<td>
+				<% u.email | html_entity %>
+			</td>
+			<td>
+				<% IF u.active %>
+				Yes
+				<% ELSE %>
+				No
+				<% END %>
+			</td>
+		</tr>
+		<% END %>
+	</table>
+</div>

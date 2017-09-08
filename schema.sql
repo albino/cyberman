@@ -3,7 +3,7 @@ create table cyberman (
 	id integer primary key,
 	dbrev integer not null
 );
-insert into cyberman (dbrev) values (5);
+insert into cyberman (dbrev) values (6);
 
 drop table if exists user;
 create table user (
@@ -15,7 +15,8 @@ create table user (
 	conftoken text not null,
 	newemail text,
 	recoverytoken text,
-	stylesheet text
+	stylesheet text,
+	admin integer not null default 0
 );
 
 drop table if exists session;

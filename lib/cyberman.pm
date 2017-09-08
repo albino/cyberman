@@ -10,6 +10,7 @@ use cyberman::Helper;
 use cyberman::API;
 use cyberman::Records;
 use cyberman::Forgot;
+use cyberman::Admin;
 
 # Index route, hook and helper functions for authentication
 
@@ -53,6 +54,7 @@ hook 'before' => sub {
 
 	var auth => $auth;
 	var email => $user->{"email"};
+	var admin => $user->{"admin"};
 	var config => config();
 
 	if ($user->{"stylesheet"} && grep {$_ eq $user->{"stylesheet"}} @{ config->{"stylesheets"}->{"available"} }) {

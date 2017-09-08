@@ -30,4 +30,35 @@ get '/api/check_availability' => sub {
 	}
 };
 
+get '/api/get_owner_email' => sub {
+	return "" if auth_test("admin");
+	if (!param("name")) {
+		return "";
+	}
+
+	my $domain = database->quick_select(
+		"domain",
+		{
+			"name" => param("name"),
+		},
+	);
+
+	if (!$domain) {
+		return "";
+	};
+
+	my $owner = database->quick_select(
+		"user",
+		{
+			"id" => $domain->{"ownerid"},
+		},
+	);
+
+	if (!$owner) {
+		return "";
+	}
+
+	return $owner->{"email"};
+};
+
 true;
