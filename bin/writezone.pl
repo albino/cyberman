@@ -29,10 +29,10 @@ END
 say $out "@  1D  IN  SOA $conf->{ns} $conf->{responsible} (";
 say $out time;
 say $out <<'END';
-3H ; refresh
+1800 ; refresh
 15 ; retry
 604800 ; expire
-3h ; nxdomain ttl
+1h ; nxdomain ttl
 )
 END
 
