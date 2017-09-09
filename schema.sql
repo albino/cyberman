@@ -1,9 +1,11 @@
 drop table if exists cyberman;
 create table cyberman (
 	id integer primary key,
-	dbrev integer not null
+	dbrev integer not null,
+	intserial integer not null default 1,
+	lastserial integer not null default 0
 );
-insert into cyberman (dbrev) values (6);
+insert into cyberman (dbrev) values (7);
 
 drop table if exists user;
 create table user (

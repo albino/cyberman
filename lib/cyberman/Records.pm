@@ -126,6 +126,8 @@ post '/domains/:name/records/add' => sub {
 		},
 	);
 
+	incr_serial();
+
 	template 'redir' => {
 		"redir" => "../records?added=1",
 	};
@@ -164,6 +166,8 @@ post '/domains/:name/records/:sid/remove' => sub {
 			"sid" => param("sid"),
 		},
 	);
+
+	incr_serial();
 
 	template 'redir' => {
 		"redir" => "../../records?removed=1",

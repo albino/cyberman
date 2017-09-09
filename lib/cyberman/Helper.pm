@@ -1,6 +1,7 @@
 package cyberman::Helper;
 use base qw(Exporter);
 use Dancer2 appname => "cyberman";
+use Dancer2::Plugin::Database;
 
 use Math::Random::Secure qw(irand);
 use Digest::Bcrypt;
@@ -10,7 +11,7 @@ use Email::Simple::Creator;
 
 use Exporter qw(import);
 
-our @EXPORT = qw(auth_test randstring hash_password check_name send_email);
+our @EXPORT = qw(auth_test randstring hash_password check_name send_email incr_serial);
 
 # Helper functions
 
@@ -95,6 +96,21 @@ sub send_email {
 	);
 
 	sendmail($email) if config->{"mail"}->{"enabled"};
+}
+
+sub incr_serial {
+	my $cyberman = database->quick_select(
+		"cyberman",
+		{},
+	);
+	database->quick_update(
+		"cyberman",
+		{},
+		{
+			"intserial" => $cyberman->{"intserial"} + 1,
+		},
+	);
+	return 1;
 }
 
 1;

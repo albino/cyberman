@@ -15,6 +15,16 @@ my $yml = YAML::Tiny->read("$Bin/../config.yml");
 my $tld = $yml->[0]->{"tld"};
 my $conf = $yml->[0]->{"zonewriter"};
 
+die "Unsupported database!"
+	unless $yml->[0]->{"plugins"}->{"Database"}->{"driver"} eq "SQLite";
+my $dbfile = "$Bin/../$yml->[0]->{plugins}->{Database}->{dbname}";
+my $dbh = DBI->connect("dbi:SQLite:dbname=$dbfile", "", "");
+
+my $sth = $dbh->prepare("SELECT * from cyberman");
+$sth->execute;
+my $cyberman = $sth->fetchrow_hashref;
+exit unless $cyberman->{"intserial"} > $cyberman->{"lastserial"};
+
 open my $out, ">", $conf->{"file"} or die $!;
 
 # Introduction
@@ -41,12 +51,7 @@ if ($conf->{"include"}->{"enabled"}) {
 }
 
 # Time to get the records
-die "Unsupported database!"
-	unless $yml->[0]->{"plugins"}->{"Database"}->{"driver"} eq "SQLite";
-my $dbfile = "$Bin/../$yml->[0]->{plugins}->{Database}->{dbname}";
-my $dbh = DBI->connect("dbi:SQLite:dbname=$dbfile", "", "");
-
-my $sth = $dbh->prepare("SELECT * FROM record");
+$sth = $dbh->prepare("SELECT * FROM record");
 $sth->execute;
 
 while (my $r = $sth->fetchrow_hashref) {
@@ -71,3 +76,7 @@ while (my $r = $sth->fetchrow_hashref) {
 }
 
 close $out;
+
+$sth = $dbh->prepare("UPDATE cyberman SET lastserial=?");
+$sth->bind_param(1, $cyberman->{"intserial"});
+$sth->execute;
