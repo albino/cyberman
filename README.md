@@ -35,6 +35,12 @@ Once you've got all that, just run `plackup` to start a development server. You 
 
 You can deploy cyberman however you want, using Plack. Just make sure you pass `-E production` - this disables detailed error pages which could be a security risk, and tones down the logging.
 
+## WHOIS server
+
+The WHOIS server is written in Perl 6 (what do you think I am, a luddite?!) so you need to install that first, along with Panda, a package manager. Then, install the dependencies for the WHOIS server: `cat whoissrv/DEPENDENCIES | xargs -n 1 panda install`. Edit the values in the `whoissrv` section of `config.yml` and then start the server as root.
+
+The WHOIS server is not supported on Windows at this time.
+
 ## Questions, fan mail, etc
 
 Feel free to join `#cyb` on `irc.cyberia.is`!

@@ -18,7 +18,7 @@
 		<% FOREACH d IN domains %>
 		<tr>
 			<td>
-				<% d.name | html_entity %>.cyb
+				<% d.name | html_entity %>.<% vars.config.tld %>
 			</td>
 			<td id="owneremail-<% d.name | html_entity %>">
 				[&nbsp;<a class="bracketButton" onclick="showOwnerEmail('<% d.name | html_entity %>')" style="cursor:pointer">show</a>&nbsp;]

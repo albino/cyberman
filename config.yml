@@ -48,3 +48,13 @@ mail:
   # Currently, the local MTA is used and there's no config option
   from: 'cybnic@uptime.party'
   baseurl: 'http://opennic.cyb'
+
+whoissrv:
+  # Only required if whoissrv is going to be run
+  bind: "0.0.0.0"
+  port: 43
+  logging: 1
+  motdfile: "motd.txt"
+  drop-uid: 999
+  drop-gid: 999
+  registrar-urls: "http://opennic.cyb, https://cyb.uptime.party"

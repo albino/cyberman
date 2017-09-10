@@ -1,0 +1,6 @@
+
+Welcome to the cybNIC registry!
+The following information is presented in the hopes that it will be useful,
+but cybNIC makes ABSOLUTELY NO GUARANTEE as to its accuracy.
+
+Queries made to this service may be logged. IP addresses will not be logged.
