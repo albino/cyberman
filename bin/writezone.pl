@@ -10,6 +10,7 @@ use feature 'say';
 use FindBin qw($Bin);
 use YAML::Tiny;
 use DBI;
+use Capture::Tiny ':all';
 
 my $yml = YAML::Tiny->read("$Bin/../config.yml");
 my $tld = $yml->[0]->{"tld"};
@@ -25,30 +26,27 @@ $sth->execute;
 my $cyberman = $sth->fetchrow_hashref;
 exit unless $cyberman->{"intserial"} > $cyberman->{"lastserial"};
 
-open my $out, ">", $conf->{"file"} or die $!;
+my $zone;
 
 # Introduction
-say $out <<'END';
+$zone .= <<"END";
 ; File produced by cyberman. Do not edit!
-$TTL 86400
-$ORIGIN cyb.
+\$TTL 86400
+\$ORIGIN $tld.
+
 END
 
 # Write SOA
 # Uses mostly hard-coded values for now
-say $out "@  1D  IN  SOA $conf->{ns} $conf->{responsible} (";
-say $out time;
-say $out <<'END';
+$zone .= "@  1D  IN  SOA $conf->{ns} $conf->{responsible} (\n" . time . "\n";
+$zone .= <<'END';
 1800 ; refresh
 15 ; retry
 604800 ; expire
 1h ; nxdomain ttl
 )
-END
 
-if ($conf->{"include"}->{"enabled"}) {
-	say $out "\$INCLUDE $conf->{include}->{file}";
-}
+END
 
 # Time to get the records
 $sth = $dbh->prepare("SELECT * FROM record");
@@ -63,20 +61,41 @@ while (my $r = $sth->fetchrow_hashref) {
 
 	# domain name
 	if ($r->{"name"} eq '@') {
-		print $out $d->{"name"}, " ";
+		$zone .= $d->{"name"} . " ";
 	} else {
-		print $out $r->{"name"}, ".", $d->{"name"}, " ";
+		$zone .= $r->{"name"} . "." . $d->{"name"} . " ";
 	}
 
 	# record type
-	print $out "IN $r->{type} ";
+	$zone .= "IN $r->{type} ";
 
 	# value
-	say $out $r->{value};
+	$zone .= "$r->{value}\n";
 }
 
+if ($conf->{"validate"}) {
+	my $checkzone_exit;
+	capture {
+		open my $checkzone, "| nsd-checkzone $tld -" or die $!;
+		print $checkzone $zone;
+		close $checkzone;
+		$checkzone_exit = $?;
+	};
+	if ($checkzone_exit != 0) {
+		$sth = $dbh->prepare("UPDATE cyberman SET zonecheckstatus=1");
+		$sth->execute;
+		exit;
+	}
+}
+
+if ($conf->{"include"}->{"enabled"}) {
+	$zone .= "\$INCLUDE $conf->{include}->{file}\n";
+}
+
+open my $out, ">", $conf->{"file"} or die $!;
+say $out $zone;
 close $out;
 
-$sth = $dbh->prepare("UPDATE cyberman SET lastserial=?");
+$sth = $dbh->prepare("UPDATE cyberman SET lastserial=?, zonecheckstatus=0");
 $sth->bind_param(1, $cyberman->{"intserial"});
 $sth->execute;

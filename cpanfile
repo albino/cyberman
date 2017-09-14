@@ -14,6 +14,7 @@ requires "Email::Simple" => "0";
 requires "Email::Simple::Creator" => "0";
 requires "Email::Sender::Simple" => "0";
 requires "URI::Escape" => "0";
+requires "Capture::Tiny" => "0";
 
 requires "Plack::Middleware::Deflater" => "0";
 requires "Plack::Middleware::Session" => "0";

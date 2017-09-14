@@ -42,6 +42,9 @@ zonewriter:
     # in the zone, which allows you to define some records manually
     enabled: 1
     file: 'human_cyb'
+  # if true, written zones will be checked with nsd-checkzone, just in case
+  # requires nsd to be installed and nsd-checkzone to be in path
+  validate: 1
 
 mail:
   enabled: 1

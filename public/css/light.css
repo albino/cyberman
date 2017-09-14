@@ -129,3 +129,7 @@ table.t tr:first-child {
 	border-radius: 2px;
 	max-width: 650px;
 }
+.msgBox.warning {
+	background-color: #ff583a;
+	border: 1px solid #c43d25;
+}

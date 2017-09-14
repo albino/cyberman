@@ -29,7 +29,17 @@
 					</span>
 				</div>
 			</div>
-				<% END %>
+			<% END %>
+			<% IF vars.zone_check_alert %>
+			<div class="body">
+				<center>
+					<div class="msgBox warning">
+						<h3>Warning! Achtung!</h3>
+						The zone produced by the zone writer was found to be invalid by nsd; something has gone wrong! Please rectify the problem, and this message will disappear.
+					</div>
+				</center>
+			</div>
+			<% END %>
 			<% content %>
 		</div>
 	</body>

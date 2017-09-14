@@ -57,6 +57,17 @@ hook 'before' => sub {
 	var admin => $user->{"admin"};
 	var config => config();
 
+	if ($user->{"admin"}) {
+		my $zone_check = database->quick_lookup(
+			"cyberman",
+			{},
+			"zonecheckstatus",
+		);
+		if ($zone_check != 0) {
+			var zone_check_alert => 1;
+		}
+	}
+
 	if ($user->{"stylesheet"} && grep {$_ eq $user->{"stylesheet"}} @{ config->{"stylesheets"}->{"available"} }) {
 		var stylesheet => $user->{"stylesheet"};
 	} else {
