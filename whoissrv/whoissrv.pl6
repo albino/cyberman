@@ -20,6 +20,8 @@ $listener.tap( -> $conn {
 		log "Query: $q";
 		await $conn.write: ($motd~"\n").encode("utf-8");
 
+		$q = $q.lc;
+
 		my $tld = $config.{"tld"};
 		if ($q !~~ m/\.$tld$/) {
 			await $conn.write: "This WHOIS server does not provide data for that TLD.\n".encode("utf-8");
@@ -28,7 +30,12 @@ $listener.tap( -> $conn {
 			next;
 		}
 		$q ~~ s/\.$tld$//;
-		$q = $q.lc;
+		if ($config.{'reserved_domains'}.Set{$q}) {
+			await $conn.write: "$q.$tld is reserved for use by the registry.".encode("utf-8");
+			log("Domain reserved");
+			$conn.close;
+			next;
+		}
 
 		my $sth = $dbh.prepare("select * from domain where name = ?");
 		$sth.execute($q);
