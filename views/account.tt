@@ -34,6 +34,9 @@
 			<% IF e_bad_sheet %>
 			<li>The stylesheet selected was invalid.</li>
 			<% END %>
+			<% IF e_bad_privacy %>
+			<li>Please select a value for WHOIS privacy.</li>
+			<% END %>
 		</ul>
 	</div>
 </div>
@@ -88,6 +91,25 @@
 							<% END %>
 						><% sheet | html_entity %></option>
 						<% END %>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="email_pub">Show email address in WHOIS:</label>
+				</td>
+				<td>
+					<select id="email_pub" name="email_pub">
+						<option value="1"
+						<% IF user.email_pub == 1 %>
+						selected=selected
+						<% END %>
+						>Yes</option>
+						<option value="0"
+						<% IF user.email_pub == 0 %>
+						selected=selected
+						<% END %>
+						>No</option>
 					</select>
 				</td>
 			</tr>

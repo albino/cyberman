@@ -70,6 +70,10 @@ post '/account' => sub {
 		$errs{"e_bad_sheet"} = 1;
 	}
 
+	if (param("email_pub") !~ m/^[01]$/) {
+		$errs{"e_bad_privacy"} = 1;
+	}
+
 	if (scalar(keys %errs) != 0) {
 		return template 'account' => {
 			"user" => $user,
@@ -133,6 +137,7 @@ post '/account' => sub {
 		},
 		{
 			"stylesheet" => param("stylesheet"),
+			"email_pub" => param("email_pub"),
 		},
 	);
 
