@@ -41,6 +41,10 @@ $listener.tap( -> $conn {
 		$sth.execute($q);
 		my $data = $sth.row(:hash);
 
+		$sth = $dbh.prepare("select * from user where id = ?");
+		$sth.execute($data.{"ownerid"});
+		my $user = $sth.row(:hash);
+
 		if (!$data) {
 			await $conn.write: "$q.$tld is not recognised by this WHOIS server.\n".encode("utf-8");
 			log("Domain not known; connection closed");
@@ -50,7 +54,9 @@ $listener.tap( -> $conn {
 
 		my $regdate = DateTime.new($data.{"since"});
 		my $regurl = $config.{"whoissrv"}.{"registrar-urls"};
+		my $email_display = $user.{"email_pub"} == 1 ?? $user.{"email"} !! "< withheld >";
 
+		# TODO: registrant name?
 		await $conn.write: qq:heredoc/end/.encode("UTF-8");
 		Domain:                 $q.$tld
 		Domain Registered:      $regdate
@@ -59,8 +65,7 @@ $listener.tap( -> $conn {
 		Domain Status:          ACTIVE
 		Registrar URL(s):       $regurl
 
-		Registrant Name:        < withheld >
-		Registrant Email:       < withheld >
+		Registrant Email:       $email_display
 		end
 
 		$conn.close;
