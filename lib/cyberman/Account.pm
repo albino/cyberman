@@ -74,6 +74,10 @@ post '/account' => sub {
 		$errs{"e_bad_privacy"} = 1;
 	}
 
+	if (param("whois_name") !~ m/^[A-Za-z0-9 \'-]{0,64}$/) {
+		$errs{"e_bad_name"} = 1;
+	}
+
 	if (scalar(keys %errs) != 0) {
 		return template 'account' => {
 			"user" => $user,
@@ -138,6 +142,7 @@ post '/account' => sub {
 		{
 			"stylesheet" => param("stylesheet"),
 			"email_pub" => param("email_pub"),
+			"whois_name" => param("whois_name"),
 		},
 	);
 

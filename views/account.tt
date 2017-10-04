@@ -37,6 +37,9 @@
 			<% IF e_bad_privacy %>
 			<li>Please select a value for WHOIS privacy.</li>
 			<% END %>
+			<% IF e_bad_name %>
+			<li>The name you entered is invalid, sorry. Please use Latin characters only.</li>
+			<% END %>
 		</ul>
 	</div>
 </div>
@@ -92,6 +95,18 @@
 						><% sheet | html_entity %></option>
 						<% END %>
 					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<label for="whois_name">Name to dislplay in WHOIS:</label>
+				</td>
+				<td>
+					<input type="text" name="whois_name" id="whois_name" placeholder="Leave blank to withhold"
+					<% IF user.whois_name %>
+					value="<% user.whois_name | html_entity %>"
+					<% END %>
+					/>
 				</td>
 			</tr>
 			<tr>

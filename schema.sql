@@ -6,7 +6,7 @@ create table cyberman (
 	lastserial integer not null default 0,
 	zonecheckstatus integer not null default 0,
 );
-insert into cyberman (dbrev) values (9);
+insert into cyberman (dbrev) values (10);
 
 drop table if exists user;
 create table user (
@@ -20,7 +20,8 @@ create table user (
 	recoverytoken text,
 	stylesheet text,
 	admin integer not null default 0,
-	email_pub integer not null default 0
+	email_pub integer not null default 0,
+	whois_name text
 );
 
 drop table if exists session;
