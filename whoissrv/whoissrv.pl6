@@ -55,8 +55,8 @@ $listener.tap( -> $conn {
 		my $regdate = DateTime.new($data.{"since"});
 		my $regurl = $config.{"whoissrv"}.{"registrar-urls"};
 		my $email_display = $user.{"email_pub"} == 1 ?? $user.{"email"} !! "< withheld >";
+		my $name_display = $user.{"whois_name"} ?? $user.{"whois_name"} !! "< withheld >";
 
-		# TODO: registrant name?
 		await $conn.write: qq:heredoc/end/.encode("UTF-8");
 		Domain:                 $q.$tld
 		Domain Registered:      $regdate
@@ -65,6 +65,7 @@ $listener.tap( -> $conn {
 		Domain Status:          ACTIVE
 		Registrar URL(s):       $regurl
 
+		Registrant Name:        $name_display
 		Registrant Email:       $email_display
 		end
 
